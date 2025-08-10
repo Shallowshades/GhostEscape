@@ -29,6 +29,7 @@ find_package(glm REQUIRED)
 # 添加可执行文件
 add_executable(${TARGET} 
                 src/core/game.cpp
+                src/core/asset_store.cpp
                 src/main.cpp
                 src/scene_main.cpp
                 )

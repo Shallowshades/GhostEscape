@@ -64,6 +64,13 @@ void Game::init(std::string title, int width, int height) {
     // 计算帧延迟
     frame_delay_ = 1000000000 / FPS_;
 
+    // 创建资源管理器
+    asset_store_ = new AssetStore(renderer_);
+    if (!asset_store_) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "AssetStore Creation Failed: %s\n", SDL_GetError());
+        return;
+    }
+
     // 创建场景
     current_scene_ = new SceneMain();
     current_scene_->init();
@@ -105,6 +112,11 @@ void Game::clean() {
         current_scene_->clean();
         delete current_scene_;
         current_scene_ = nullptr;
+    }
+    if (asset_store_) {
+        asset_store_->clean();
+        delete asset_store_;
+        asset_store_ = nullptr;
     }
     if (renderer_) {
         SDL_DestroyRenderer(renderer_);

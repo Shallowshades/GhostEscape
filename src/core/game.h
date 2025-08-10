@@ -1,12 +1,16 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <string>
+
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_mixer/SDL_mixer.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <glm/glm.hpp>
-#include <string>
+
+#include "asset_store.h"
+
 
 class Scene;
 class Game {
@@ -17,6 +21,7 @@ public:
     }
 public:
     glm::vec2 getScreenSize() const { return screen_size; }
+    AssetStore* getAssetStore() const { return asset_store_; }
 public:
     void drawGrid(const glm::vec2& top_left, const glm::vec2& bottom_right, float grid_width, SDL_FColor fcolor);
     void drawBoundary(const glm::vec2& top_left, const glm::vec2& bottom_right, float boundary_width, SDL_FColor fcolor);
@@ -45,6 +50,8 @@ private:
 
     SDL_Window* window_ = nullptr;
     SDL_Renderer* renderer_ = nullptr;
+
+    AssetStore* asset_store_ = nullptr;
 };
 
 #endif // GAME_H
