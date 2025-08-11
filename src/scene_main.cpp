@@ -5,7 +5,7 @@ void SceneMain::init() {
     camera_position_ = glm::vec2(-100.0f);
 }
 
-void SceneMain::handleEvent(SDL_Event& event) {
+void SceneMain::handleEvents(SDL_Event& event) {
 
 }
 

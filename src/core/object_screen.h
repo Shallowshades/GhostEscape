@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 
-#include "core/object.h"
+#include "object.h"
 
 class ObjectScreen : public Object {
 public:
@@ -13,7 +13,6 @@ public:
 
 protected:
     glm::vec2 render_position_ = glm::vec(0, 0);
-
-}
+};
 
 #endif // OBJECT_SCREEN_H

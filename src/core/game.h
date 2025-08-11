@@ -28,7 +28,7 @@ public:
 public:
     void run();
     void init(std::string title, int width, int height);
-    void handleEvent();
+    void handleEvents();
     void update(float dt);
     void render();
     void clean();

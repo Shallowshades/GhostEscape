@@ -7,7 +7,7 @@ constexpr Uint64 PER_MSEC = 1000000; // 1 millisecond in nanoseconds
 void Game::run() {
     while (is_running_) {
         auto start = SDL_GetTicksNS();
-        handleEvent();
+        handleEvents();
         update(dt_);
         render();
         auto elapsed = SDL_GetTicksNS() - start;
@@ -76,7 +76,7 @@ void Game::init(std::string title, int width, int height) {
     current_scene_->init();
 }
 
-void Game::handleEvent() {
+void Game::handleEvents() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -85,7 +85,7 @@ void Game::handleEvent() {
             break;
         default:
             if (current_scene_) {
-                current_scene_->handleEvent(event);
+                current_scene_->handleEvents(event);
             }
             break;
         }

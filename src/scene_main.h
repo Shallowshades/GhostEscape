@@ -9,7 +9,7 @@ public:
     virtual ~SceneMain() = default;
 public:
     virtual void init() override;
-    virtual void handleEvent(SDL_Event& event) override;
+    virtual void handleEvents(SDL_Event& event) override;
     virtual void update(float deltaTime) override;
     virtual void render() override;
     virtual void clean() override;
