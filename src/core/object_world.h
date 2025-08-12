@@ -10,6 +10,8 @@ public:
     void setWorldPosition(const glm::vec2& position);
     virtual void setRenderPosition(const glm::vec2& position) override;
 
+    virtual void init() override { setType(ObjectType::OBJECT_WORLD); }
+
 protected:
     glm::vec2 world_position_ = glm::vec2(0, 0);
 };

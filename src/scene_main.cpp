@@ -7,27 +7,24 @@ void SceneMain::init() {
     player_ = new Player;
     player_->init();
     player_->setWorldPosition(world_size_ / 2.f);
+    addChild(player_);
 }
 
 void SceneMain::handleEvents(SDL_Event& event) {
-
+    Scene::handleEvents(event);
 }
 
 void SceneMain::update(float deltaTime) {
-    player_->update(deltaTime);
+    Scene::update(deltaTime);
 }
 
 void SceneMain::render() {
     renderBackground();
-    player_->render();
+    Scene::render();
 }
 
 void SceneMain::clean() {
-    if (player_) {
-        player_->clean();
-        delete player_;
-        player_ = nullptr;
-    }
+    Scene::clean();
 }
 
 void SceneMain::renderBackground() {

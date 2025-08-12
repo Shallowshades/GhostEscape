@@ -2,14 +2,16 @@
 #include "core/scene.h"
 
 void Player::init() {
+    Actor::init();
     max_speed_ = 10.0f; // Set a reasonable max speed for the player
 }
 
 void Player::handleEvents(SDL_Event& event) {
-
+    Actor::handleEvents(event);
 }
 
 void Player::update(float deltaTime) {
+    Actor::update(deltaTime);
     keyboardControl();
     velocity_ *= 0.9f;
     move(deltaTime);
@@ -17,10 +19,12 @@ void Player::update(float deltaTime) {
 }
 
 void Player::render() {
+    Actor::render();
     game_.drawBoundary(render_position_, render_position_ + glm::vec2(20.f), 5.0f, { 1.f, 0.f, 0.f, 1.f });
 }
 
 void Player::clean() {
+    Actor::clean();
 }
 
 void Player::keyboardControl() {

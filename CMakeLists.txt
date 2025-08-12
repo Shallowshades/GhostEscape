@@ -32,6 +32,7 @@ add_executable(${TARGET}
                 src/core/asset_store.cpp
                 src/core/object_world.cpp
                 src/core/scene.cpp
+                src/core/object.cpp
                 src/main.cpp
                 src/scene_main.cpp
                 src/player.cpp
