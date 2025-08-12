@@ -22,6 +22,7 @@ public:
 public:
     glm::vec2 getScreenSize() const { return screen_size; }
     AssetStore* getAssetStore() const { return asset_store_; }
+    Scene* getCurrentScene() const { return current_scene_; }
 public:
     void drawGrid(const glm::vec2& top_left, const glm::vec2& bottom_right, float grid_width, SDL_FColor fcolor);
     void drawBoundary(const glm::vec2& top_left, const glm::vec2& bottom_right, float boundary_width, SDL_FColor fcolor);

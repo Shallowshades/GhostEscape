@@ -19,7 +19,7 @@ void Game::run() {
             dt_ = static_cast<float>(elapsed / PER_SEC);
         }
 
-        SDL_Log("FPS: %f, dt_ = %f", 1.f / dt_, dt_);
+        // SDL_Log("FPS: %f, dt_ = %f", 1.f / dt_, dt_);
     }
 }
 

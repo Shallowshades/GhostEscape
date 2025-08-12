@@ -8,11 +8,11 @@ public:
     Object() = default;
     virtual ~Object() = default;
 public:
-    virtual void init() = 0;
-    virtual void handleEvents(SDL_Event& event) = 0;
-    virtual void update(float deltaTime) = 0;
-    virtual void render() = 0;
-    virtual void clean() = 0;
+    virtual void init() {};
+    virtual void handleEvents(SDL_Event& event) {};
+    virtual void update(float deltaTime) {};
+    virtual void render() {};
+    virtual void clean() {};
 
 protected:
     Game& game_ = Game::GetInstance();

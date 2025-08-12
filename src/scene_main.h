@@ -3,6 +3,8 @@
 
 #include "core/scene.h"
 
+class Player;
+
 class SceneMain : public Scene {
 public:
     SceneMain() = default;
@@ -16,7 +18,8 @@ public:
 private:
     void renderBackground();
 private:
-    glm::vec2 world_size_ = glm::vec2(0);
+    // glm::vec2 world_size_ = glm::vec2(0);
+    Player* player_ = nullptr;
 };
 
 #endif // SCENE_MAIN_H
