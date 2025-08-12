@@ -1,9 +1,14 @@
 #include "player.h"
 #include "core/scene.h"
+#include "affiliate/sprite.h"
 
 void Player::init() {
     Actor::init();
-    max_speed_ = 10.0f; // Set a reasonable max speed for the player
+    max_speed_ = 10.0f;
+    auto sprite = new Sprite;
+    sprite->setTexture(Texture("assets/sprite/ghost-idle.png"));
+    sprite->setParent(this);
+    addChild(sprite);
 }
 
 void Player::handleEvents(SDL_Event& event) {

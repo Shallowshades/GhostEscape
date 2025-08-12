@@ -1,5 +1,6 @@
 #include "game.h"
 #include "../scene_main.h"
+#include "../affiliate/sprite.h"
 
 constexpr float PER_SEC = 1000000000.f; // 1 second in nanoseconds
 constexpr Uint64 PER_MSEC = 1000000; // 1 millisecond in nanoseconds 
@@ -130,6 +131,16 @@ void Game::clean() {
     Mix_CloseAudio();
     Mix_Quit();
     SDL_Quit();
+}
+
+void Game::renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size) {
+    SDL_FRect dst_rect = {
+        position.x,
+        position.y,
+        size.x,
+        size.y
+    };
+    SDL_RenderTextureRotated(renderer_, texture.texture, &texture.src_rect, &dst_rect, texture.angle, nullptr, texture.is_flipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }
 
 void Game::drawGrid(const glm::vec2& top_left, const glm::vec2& bottom_right, float grid_width, SDL_FColor fcolor) {

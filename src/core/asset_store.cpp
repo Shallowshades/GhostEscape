@@ -22,7 +22,7 @@ void AssetStore::clean() {
     fonts_.clear();
 }
 
-void AssetStore::loadImage(const std::string& filePath) {
+void AssetStore::loadTexture(const std::string& filePath) {
     SDL_Texture* texture = IMG_LoadTexture(renderer_, filePath.c_str());
     if (texture == nullptr) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load image: %s, %s", filePath.c_str(), SDL_GetError());
@@ -62,10 +62,10 @@ void AssetStore::loadFont(const std::string& filePath, int fontSize) {
     fonts_.emplace(filePath + std::to_string(fontSize), font);         // Store if not already present
 }
 
-SDL_Texture* AssetStore::getImage(const std::string& filePath) {
+SDL_Texture* AssetStore::getTexture(const std::string& filePath) {
     auto iter = textures_.find(filePath);
     if (iter != textures_.end()) {
-        loadImage(filePath); // Ensure the image is loaded
+        loadTexture(filePath); // Ensure the image is loaded
         iter = textures_.find(filePath);
     }
     if (iter == textures_.end()) {

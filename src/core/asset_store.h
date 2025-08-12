@@ -16,13 +16,13 @@ public:
     void clean();
 
     // load functions
-    void loadImage(const std::string& filePath);
+    void loadTexture(const std::string& filePath);
     void loadSound(const std::string& filePath);
     void loadMusic(const std::string& filePath);
     void loadFont(const std::string& filePath, int fontSize);
 
     // read functions
-    SDL_Texture* getImage(const std::string& filePath);
+    SDL_Texture* getTexture(const std::string& filePath);
     Mix_Chunk* getSound(const std::string& filePath);
     Mix_Music* getMusic(const std::string& filePath);
     TTF_Font* getFont(const std::string& filePath, int fontSize);
