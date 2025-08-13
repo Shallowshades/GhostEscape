@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "core/actor.h"
+#include "affiliate/sprite_animation.h"
 
 class Player : public Actor {
 public:
@@ -14,6 +15,12 @@ public:
     void keyboardControl();
     void move(float deltaTime);
     void syncCamera();
+    void checkState();
+    void changeState(bool moving);
+private:
+    SpriteAnimation* sprite_idle_ = nullptr;
+    SpriteAnimation* sprite_move_ = nullptr;
+    bool is_moving_ = false;
 };
 
 #endif // PLAYER_H

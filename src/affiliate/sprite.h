@@ -23,6 +23,10 @@ public:
 
     Texture getTexture() { return texture_; }
     virtual void setTexture(const Texture& texture);
+    bool getFlip() const { return texture_.is_flipped; }
+    void setFlip(bool flip) { texture_.is_flipped = flip; }
+    float getAngle() const { return texture_.angle; }
+    void setAngle(float angle) { texture_.angle = angle; }
 protected:
     Texture texture_; // Sprite texture
 };

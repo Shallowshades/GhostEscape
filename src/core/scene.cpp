@@ -3,30 +3,42 @@
 void Scene::handleEvents(SDL_Event& event) {
     Object::handleEvents(event);
     for (auto& child : children_world_) {
-        child->handleEvents(event);
+        if (child->isActive()) {
+            child->handleEvents(event);
+        }
     }
     for (auto& child : children_screen_) {
-        child->handleEvents(event);
+        if (child->isActive()) {
+            child->handleEvents(event);
+        }
     }
 }
 
 void Scene::update(float deltaTime) {
     Object::update(deltaTime);
     for (auto& child : children_world_) {
-        child->update(deltaTime);
+        if (child->isActive()) {
+            child->update(deltaTime);
+        }
     }
     for (auto& child : children_screen_) {
-        child->update(deltaTime);
+        if (child->isActive()) {
+            child->update(deltaTime);
+        }
     }
 }
 
 void Scene::render() {
     Object::render();
     for (auto& child : children_world_) {
-        child->render();
+        if (child->isActive()) {
+            child->render();
+        }
     }
     for (auto& child : children_screen_) {
-        child->render();
+        if (child->isActive()) {
+            child->render();
+        }
     }
 }
 

@@ -5,7 +5,9 @@
 void Player::init() {
     Actor::init();
     max_speed_ = 10.0f;
-    SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-idle.png", 2.f);
+    sprite_idle_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-idle.png", 2.f);
+    sprite_move_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-move.png", 2.f);
+    sprite_move_->setActive(false);
 }
 
 void Player::handleEvents(SDL_Event& event) {
@@ -16,6 +18,7 @@ void Player::update(float deltaTime) {
     Actor::update(deltaTime);
     keyboardControl();
     velocity_ *= 0.9f;
+    checkState();
     move(deltaTime);
     syncCamera();
 }
@@ -57,4 +60,36 @@ void Player::move(float deltaTime) {
 
 void Player::syncCamera() {
     game_.getCurrentScene()->setCameraPosition(world_position_ - game_.getScreenSize() / 2.0f);
+}
+
+void Player::checkState() {
+    if (velocity_.x < 0) {
+        sprite_move_->setFlip(true);
+        sprite_idle_->setFlip(true);
+    }
+    else {
+        sprite_move_->setFlip(false);
+        sprite_idle_->setFlip(false);
+    }
+
+    bool new_is_moving = (velocity_.x != 0 || velocity_.y != 0);
+    if (new_is_moving != is_moving_) {
+        is_moving_ = new_is_moving;
+        changeState(is_moving_);
+    }
+}
+
+void Player::changeState(bool moving) {
+    if (is_moving_) {
+        sprite_idle_->setActive(false);
+        sprite_move_->setActive(true);
+        sprite_move_->setCurrentFrame(sprite_idle_->getCurrentFrame());
+        sprite_move_->setFrameTimer(sprite_idle_->getFrameTimer());
+    }
+    else {
+        sprite_idle_->setActive(true);
+        sprite_move_->setActive(false);
+        sprite_idle_->setCurrentFrame(sprite_move_->getCurrentFrame());
+        sprite_idle_->setFrameTimer(sprite_move_->getFrameTimer());
+    }
 }

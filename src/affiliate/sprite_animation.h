@@ -16,10 +16,12 @@ public:
     void setTotalFrames(int frames) { total_frames_ = frames; }
     int getFPS() const { return fps_; }
     void setFPS(int fps) { fps_ = fps; }
+    float getFrameTimer() const { return frame_timer; }
+    void setFrameTimer(float timer) { frame_timer = timer; }
 private:
     int current_frame_;
     int total_frames_;
-    int fps_ = 10;
+    int fps_ = 1;
     float frame_timer = 0.f;
 };
 
