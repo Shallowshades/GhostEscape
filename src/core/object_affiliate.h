@@ -15,9 +15,9 @@ public:
     glm::vec2 getSize() const { return size_; }
     void setSize(const glm::vec2& size) { size_ = size; }
 protected:
-    ObjectScreen* parrent_ = nullptr;        // 父节点
-    glm::vec2 offset_ = glm::vec2(0, 0);    // 相对父节点的偏移位置
-    glm::vec2 size_ = glm::vec2(0, 0);      // 相对父节点的大小
+    ObjectScreen* parrent_ = nullptr;
+    glm::vec2 offset_ = glm::vec2(0, 0);
+    glm::vec2 size_ = glm::vec2(0, 0);
 };
 
 #endif // OBJECT_AFFILIATE_H

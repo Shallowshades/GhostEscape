@@ -26,14 +26,14 @@ void Game::run() {
 
 void Game::init(std::string title, int width, int height) {
     screen_size = glm::vec2(width, height);
-    // SDL3 初始化
+    // SDL3 init
     if (!SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO)) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL Init Failed: %s\n", SDL_GetError());
         return;
     }
-    // SDL_image不需要初始化
+    // SDL_image not init
 
-    // SDL_Mixer初始化
+    // SDL_Mixer init
     if (Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG) != (MIX_INIT_MP3 | MIX_INIT_OGG)) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_mixer Init Failed: %s\n", SDL_GetError());
         return;
@@ -42,37 +42,39 @@ void Game::init(std::string title, int width, int height) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_mixer Open Audio Failed: %s\n", SDL_GetError());
         return;
     }
-    Mix_AllocateChannels(16); // 分配32个音频通道
-    Mix_VolumeMusic(MIX_MAX_VOLUME / 4); // 设置音乐音量
-    Mix_Volume(-1, MIX_MAX_VOLUME / 4); // 设置音效音量
 
-    // SDL_ttf初始化
+    // SDL_mixer init
+    Mix_AllocateChannels(16);
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
+    Mix_Volume(-1, MIX_MAX_VOLUME / 4);
+
+    // SDL_ttf init
     if (!TTF_Init()) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_ttf Init Failed: %s\n", SDL_GetError());
         return;
     }
 
 
-    // 创建窗口和渲染器
+    // SDL create window and renderer
     SDL_CreateWindowAndRenderer(title.c_str(), width, height, SDL_WINDOW_RESIZABLE, &window_, &renderer_);
     if (!window_ || !renderer_) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL Create Window and Renderer Failed: %s\n", SDL_GetError());
         return;
     }
-    // 设置窗口逻辑分辨率
+    // Set logical resolution
     SDL_SetRenderLogicalPresentation(renderer_, width, height, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
-    // 计算帧延迟
+    // Calculate frame delay
     frame_delay_ = 1000000000 / FPS_;
 
-    // 创建资源管理器
+    // Create asset manager
     asset_store_ = new AssetStore(renderer_);
     if (!asset_store_) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "AssetStore Creation Failed: %s\n", SDL_GetError());
         return;
     }
 
-    // 创建场景
+    // Create scene
     current_scene_ = new SceneMain();
     current_scene_->init();
 }

@@ -7,6 +7,16 @@ Texture::Texture(const std::string& file_path) {
     SDL_GetTextureSize(texture, &src_rect.w, &src_rect.h);
 }
 
+Sprite* Sprite::addSpriteChild(ObjectScreen* parent, const std::string& file_path, float scale) {
+    auto sprite = new Sprite();
+    sprite->init();
+    sprite->setTexture(Texture(file_path));
+    sprite->setScale(scale);
+    sprite->setParent(parent);
+    parent->addChild(sprite);
+    return sprite;
+}
+
 void Sprite::render() {
     if (texture_.texture == nullptr || parrent_ == nullptr) {
         return;

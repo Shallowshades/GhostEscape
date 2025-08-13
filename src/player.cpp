@@ -1,14 +1,11 @@
 #include "player.h"
 #include "core/scene.h"
-#include "affiliate/sprite.h"
+#include "affiliate/sprite_animation.h"
 
 void Player::init() {
     Actor::init();
     max_speed_ = 10.0f;
-    auto sprite = new Sprite;
-    sprite->setTexture(Texture("assets/sprite/ghost-idle.png"));
-    sprite->setParent(this);
-    addChild(sprite);
+    SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-idle.png", 2.f);
 }
 
 void Player::handleEvents(SDL_Event& event) {
@@ -25,7 +22,7 @@ void Player::update(float deltaTime) {
 
 void Player::render() {
     Actor::render();
-    game_.drawBoundary(render_position_, render_position_ + glm::vec2(20.f), 5.0f, { 1.f, 0.f, 0.f, 1.f });
+    // game_.drawBoundary(render_position_, render_position_ + glm::vec2(20.f), 5.0f, { 1.f, 0.f, 0.f, 1.f });
 }
 
 void Player::clean() {

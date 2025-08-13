@@ -16,11 +16,13 @@ struct Texture {
 
 class Sprite : public ObjectAffiliate {
 public:
-    Sprite() = default;
+    static Sprite* addSpriteChild(ObjectScreen* parent, const std::string& file_path, float scale = 1.f);
     virtual void render() override;
 
-    Texture& getTexture() { return texture_; }
-    void setTexture(const Texture& texture);
+    void setScale(float scale) { size_ *= scale; }
+
+    Texture getTexture() { return texture_; }
+    virtual void setTexture(const Texture& texture);
 protected:
     Texture texture_; // Sprite texture
 };
