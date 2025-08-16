@@ -79,8 +79,8 @@ void Player::checkState() {
     }
 }
 
-void Player::changeState(bool moving) {
-    if (is_moving_) {
+void Player::changeState(bool isMoving) {
+    if (isMoving) {
         sprite_idle_->setActive(false);
         sprite_move_->setActive(true);
         sprite_move_->setCurrentFrame(sprite_idle_->getCurrentFrame());

@@ -1,0 +1,34 @@
+compilation_database_dir: build
+output_directory: docs/uml
+diagrams:
+  classes_diagram:
+    type: class
+    glob:
+      - src/*.cpp
+      - src/*.h
+      - src/**/*.cpp
+      - src/**/*.h
+    plantuml:
+      before:
+        - "@startuml class_diagram.puml"
+        # - "!theme materia"
+        - "skinparam dpi 150"
+        - "title Class Diagram - ghost escape"
+
+  sequence_diagram:
+    # Type of diagram (has to be `sequence`)
+    type: sequence
+    # Include only translation units matching the following patterns
+    glob:
+      - src/*.cpp
+      - src/*.h
+      - src/**/*.cpp
+      - src/**/*.h
+    from:
+      - function: "main()"
+    plantuml:
+      before:
+        - "@startuml sequence_diagram.puml"
+        # - "!theme materia"
+        - "skinparam dpi 150"
+        - "title Sequence Diagram - ghost escape"

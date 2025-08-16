@@ -52,3 +52,6 @@ build-*/
 *.Zip
 *.rar
 *.7z
+
+# Misc files
+misc/
