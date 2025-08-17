@@ -1,0 +1,73 @@
+name: UML Diagrams CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-generate-uml:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 检出代码
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. 安装依赖
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++ clang llvm-16-dev llvm-16-tools clang-16 libclang-16-dev libclang-cpp16-dev libclang-dev graphviz default-jre libyaml-cpp-dev
+          sudo apt-get install -y libsdl3-dev libsdl3-image-dev libsdl3-mixer-dev libsdl3-ttf-dev libsdl3-net-dev
+
+      # 3. 安装 clang-uml
+      - name: Build clang-uml
+        run: |
+          git clone https://github.com/bkryza/clang-uml.git
+          cd clang-uml
+          mkdir build && cd build
+          cmake ..
+          make -j$(nproc)
+          sudo make install
+
+      # 4. 配置构建
+      - name: Configure project
+        run: |
+          mkdir build && cd build
+          cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+
+      # 5. 编译项目
+      - name: Build project
+        run: cmake --build build -- -j$(nproc)
+
+      # 6. 运行 clang-uml 生成 .puml
+      - name: Run clang-uml
+        run: |
+          clang-uml generate --config .clang-uml.yaml
+
+      # 7. 生成 UML PNG/SVG
+      - name: Generate UML diagrams
+        run: |
+          mkdir -p docs/images
+          for f in docs/uml/*.puml; do
+            java -Dfile.encoding=UTF-8 -jar tools/plantuml.jar -tpng -o docs/images "$f"
+            java -Dfile.encoding=UTF-8 -jar tools/plantuml.jar -tsvg -o docs/images "$f"
+          done
+
+      # 8. 上传 UML 图片作为构件 (artifact)
+      - name: Upload UML artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: uml-diagrams
+          path: docs/images/
+
+      # 9. 发布到 gh-pages
+      - name: Deploy UML to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/images
+          publish_branch: gh-pages
