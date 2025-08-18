@@ -2,18 +2,20 @@
 #define OBJECT_WORLD_H
 
 #include "object_screen.h"
+#include "../affiliate/collider.h"
 
 class ObjectWorld : public ObjectScreen {
 public:
+    virtual void init() override { setType(ObjectType::OBJECT_WORLD); }
     virtual void update(float deltaTime) override;
-    glm::vec2 getWorldPosition() const { return world_position_; }
+    virtual glm::vec2 getWorldPosition() const override { return world_position_; }
     void setWorldPosition(const glm::vec2& position);
     virtual void setRenderPosition(const glm::vec2& position) override;
-
-    virtual void init() override { setType(ObjectType::OBJECT_WORLD); }
-
+    Collider* getCollider() const { return collider_; }
+    void setCollider(Collider* collider) { this->collider_ = collider; }
 protected:
     glm::vec2 world_position_ = glm::vec2(0, 0);
+    Collider* collider_ = nullptr;
 };
 
 

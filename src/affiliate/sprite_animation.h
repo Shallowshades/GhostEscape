@@ -18,11 +18,14 @@ public:
     void setFPS(int fps) { fps_ = fps; }
     float getFrameTimer() const { return frame_timer; }
     void setFrameTimer(float timer) { frame_timer = timer; }
+    bool isLoop() const { return isLoop_; }
+    void setLoop(bool loop) { isLoop_ = loop; }
 private:
     int current_frame_;
     int total_frames_;
     int fps_ = 1;
     float frame_timer = 0.f;
+    bool isLoop_ = true;
 };
 
 #endif // SPRITE_ANIMATION_H

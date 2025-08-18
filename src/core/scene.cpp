@@ -16,14 +16,32 @@ void Scene::handleEvents(SDL_Event& event) {
 
 void Scene::update(float deltaTime) {
     Object::update(deltaTime);
-    for (auto& child : children_world_) {
-        if (child->isActive()) {
-            child->update(deltaTime);
+    for (auto iter = children_world_.begin(); iter != children_world_.end(); ) {
+        if ((*iter)->isNeedRemove()) {
+            (*iter)->clean();
+            delete* iter;
+            iter = children_world_.erase(iter);
+            SDL_Log("Scene: remove world child\n");
+        }
+        else {
+            if ((*iter)->isActive()) {
+                (*iter)->update(deltaTime);
+            }
+            ++iter;
         }
     }
-    for (auto& child : children_screen_) {
-        if (child->isActive()) {
-            child->update(deltaTime);
+    for (auto iter = children_screen_.begin(); iter != children_screen_.end(); ) {
+        if ((*iter)->isNeedRemove()) {
+            (*iter)->clean();
+            delete* iter;
+            iter = children_screen_.erase(iter);
+            SDL_Log("Scene: remove screen child\n");
+        }
+        else {
+            if ((*iter)->isActive()) {
+                (*iter)->update(deltaTime);
+            }
+            ++iter;
         }
     }
 }

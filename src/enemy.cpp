@@ -1,16 +1,27 @@
 #include "enemy.h"
+#include "core/scene.h"
 #include "affiliate/sprite_animation.h"
+#include "affiliate/collider.h"
 
 void Enemy::init() {
     Actor::init();
-    SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-Sheet.png", 2.0f);
+    normalAnimation_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-Sheet.png", 2.0f);
+    hurtAnimation_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghostHurt-Sheet.png", 2.0f);
+    deadAnimation_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghostDead-Sheet.png", 2.0f);
+    hurtAnimation_->setActive(false);
+    deadAnimation_->setActive(false);
+    deadAnimation_->setLoop(false);
+    currentAnimation_ = normalAnimation_;
+
     setMaxSpeed(10.0f);
+    collider_ = Collider::addColliderChild(this, currentAnimation_->getSize());
 }
 
 void Enemy::update(float deltaTime) {
     Actor::update(deltaTime);
     animationTarget(target_);
     move(deltaTime);
+    attack();
 }
 
 void Enemy::animationTarget(Player* target) {
@@ -19,4 +30,48 @@ void Enemy::animationTarget(Player* target) {
     }
     auto direction = glm::normalize(target->getWorldPosition() - getWorldPosition());
     setVelocity(direction * getMaxSpeed());
+}
+
+void Enemy::checkState() {
+
+}
+
+void Enemy::changeState(State state) {
+    if (currentState_ == state) {
+        return;
+    }
+
+    currentState_ = state;
+    currentAnimation_->setActive(false);
+    switch (state) {
+    case State::NORMAL:
+        currentAnimation_ = normalAnimation_;
+        break;
+    case State::HURT:
+        currentAnimation_ = hurtAnimation_;
+        break;
+    case State::DEAD:
+        currentAnimation_ = deadAnimation_;
+        break;
+    }
+
+    if (currentAnimation_) {
+        currentAnimation_->setActive(true);
+    }
+}
+
+void Enemy::remove() {
+    if (deadAnimation_ != nullptr && deadAnimation_->isFinished()) {
+        isNeedRemove_ = true;
+    }
+}
+
+void Enemy::attack() {
+    if (getCollider() == nullptr || target_->getCollider() == nullptr) {
+        return;
+    }
+    if (collider_->isColliding(target_->getCollider())) {
+        // TODO: Attack
+        SDL_Log("Circle vs Circle");
+    }
 }

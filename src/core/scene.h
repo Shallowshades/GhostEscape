@@ -20,7 +20,7 @@ public:
     virtual void clean() override;
 
     virtual void addChild(Object* child) override;
-    virtual void removeChild(Object* child) override;
+    virtual void removeChild(Object* child) override;  // remove but not delete
 
     glm::vec2 worldToScreenPosition(const glm::vec2& worldPosition) const {
         return worldPosition - camera_position_;

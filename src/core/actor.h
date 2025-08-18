@@ -5,12 +5,6 @@
 
 class Actor : public ObjectWorld {
 public:
-    enum class State {
-        NORMAL,
-        HURT,
-        DEAD
-    };
-public:
     // getters and setters
     glm::vec2 getVelocity() const { return velocity_; }
     void setVelocity(const glm::vec2& velocity) { velocity_ = velocity; }

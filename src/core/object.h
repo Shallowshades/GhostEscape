@@ -26,12 +26,15 @@ public:
     void setType(ObjectType type) { type_ = type; }
     bool isActive() const { return is_active_; }
     void setActive(bool active) { is_active_ = active; }
+    bool isNeedRemove() const { return isNeedRemove_; }
+    void setIsNeedRemove(bool needRemove) { isNeedRemove_ = needRemove; }
 
 protected:
     Game& game_ = Game::GetInstance();
     ObjectType type_ = ObjectType::NONE;
     std::vector<Object*> children_;
     bool is_active_ = true;
+    bool isNeedRemove_ = false;
 };
 
 

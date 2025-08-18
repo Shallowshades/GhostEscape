@@ -11,11 +11,17 @@ SpriteAnimation* SpriteAnimation::addSpriteAnimationChild(ObjectScreen* parent, 
 }
 
 void SpriteAnimation::update(float delta_time) {
+    if (isFinished_) {
+        return;
+    }
     frame_timer += delta_time;
     if (frame_timer >= 1.0f / fps_) {
         ++current_frame_;
         if (current_frame_ >= total_frames_) {
             current_frame_ = 0; // Loop back to the first frame
+            if (!isLoop_) {
+                isFinished_ = true;
+            }
         }
         frame_timer = 0.f;
     }
