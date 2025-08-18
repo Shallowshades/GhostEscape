@@ -13,7 +13,6 @@ public:
     virtual void clean() override;
 public:
     void keyboardControl();
-    void move(float deltaTime);
     void syncCamera();
     void checkState();
     void changeState(bool moving);

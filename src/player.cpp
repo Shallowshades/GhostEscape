@@ -52,12 +52,6 @@ void Player::keyboardControl() {
     }
 }
 
-void Player::move(float deltaTime) {
-    setWorldPosition(world_position_ + velocity_ * deltaTime);
-    SDL_Log("dt: %f, pos: (%f, %f), vel: (%f, %f)", deltaTime, world_position_.x, world_position_.y, velocity_.x, velocity_.y);
-    world_position_ = glm::clamp(world_position_, glm::vec2(0), game_.getCurrentScene()->getWorldSize());
-}
-
 void Player::syncCamera() {
     game_.getCurrentScene()->setCameraPosition(world_position_ - game_.getScreenSize() / 2.0f);
 }
