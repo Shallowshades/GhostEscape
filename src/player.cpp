@@ -2,6 +2,7 @@
 #include "core/scene.h"
 #include "affiliate/sprite_animation.h"
 #include "affiliate/collider.h"
+#include "raw/stats.h"
 
 void Player::init() {
     Actor::init();
@@ -10,6 +11,7 @@ void Player::init() {
     sprite_move_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-move.png", 2.f);
     sprite_move_->setActive(false);
     collider_ = Collider::addColliderChild(this, sprite_idle_->getSize() / 2.f);
+    stats_ = Stats::addStatsChild(this);
 }
 
 void Player::handleEvents(SDL_Event& event) {
@@ -23,6 +25,7 @@ void Player::update(float deltaTime) {
     checkState();
     move(deltaTime);
     syncCamera();
+    // isAlive();
 }
 
 void Player::render() {

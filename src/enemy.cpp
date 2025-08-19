@@ -2,6 +2,7 @@
 #include "core/scene.h"
 #include "affiliate/sprite_animation.h"
 #include "affiliate/collider.h"
+#include "raw/stats.h"
 
 void Enemy::init() {
     Actor::init();
@@ -13,8 +14,9 @@ void Enemy::init() {
     deadAnimation_->setLoop(false);
     currentAnimation_ = normalAnimation_;
 
-    setMaxSpeed(10.0f);
+    setMaxSpeed(6.0f);
     collider_ = Collider::addColliderChild(this, currentAnimation_->getSize());
+    stats_ = Stats::addStatsChild(this);
 }
 
 void Enemy::update(float deltaTime) {
@@ -71,7 +73,8 @@ void Enemy::attack() {
         return;
     }
     if (collider_->isColliding(target_->getCollider())) {
-        // TODO: Attack
-        SDL_Log("Circle vs Circle");
+        if (stats_ != nullptr && target_->getStats() != nullptr) {
+            target_->takeDamage(stats_->getDamage());
+        }
     }
 }
