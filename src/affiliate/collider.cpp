@@ -9,7 +9,7 @@ void Collider::render() {
 #endif
 }
 
-Collider* Collider::addColliderChild(ObjectScreen* parent, const glm::vec2& size, Type type) {
+Collider* Collider::addColliderChild(ObjectScreen* parent, const glm::vec2& size, Type type, [[maybe_unused]] Anchor anchor) {
     Collider* collider = new Collider();
     collider->init();
     collider->setParent(parent);

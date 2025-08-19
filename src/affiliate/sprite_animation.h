@@ -5,7 +5,7 @@
 
 class SpriteAnimation : public Sprite {
 public:
-    static SpriteAnimation* addSpriteAnimationChild(ObjectScreen* parent, const std::string& file_path, float scale = 1.f);
+    static SpriteAnimation* addSpriteAnimationChild(ObjectScreen* parent, const std::string& file_path, float scale = 1.f, Anchor anchor = Anchor::CENTER);
     virtual void update(float delta_time) override;
 
     virtual void setTexture(const Texture& texture) override;

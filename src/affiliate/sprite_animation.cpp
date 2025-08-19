@@ -1,6 +1,6 @@
 #include "sprite_animation.h"
 
-SpriteAnimation* SpriteAnimation::addSpriteAnimationChild(ObjectScreen* parent, const std::string& file_path, float scale) {
+SpriteAnimation* SpriteAnimation::addSpriteAnimationChild(ObjectScreen* parent, const std::string& file_path, float scale, [[maybe_unused]] Anchor anchor) {
     auto sprite_animation = new SpriteAnimation();
     sprite_animation->init();
     sprite_animation->setTexture(file_path);

@@ -16,10 +16,9 @@ struct Texture {
 
 class Sprite : public ObjectAffiliate {
 public:
-    static Sprite* addSpriteChild(ObjectScreen* parent, const std::string& file_path, float scale = 1.f);
+    static Sprite* addSpriteChild(ObjectScreen* parent, const std::string& file_path, float scale = 1.f, Anchor anchor = Anchor::CENTER);
     virtual void render() override;
 public:
-    void setScale(float scale) { size_ *= scale; }
     Texture getTexture() { return texture_; }
     virtual void setTexture(const Texture& texture);
     bool getFlip() const { return texture_.is_flipped; }
