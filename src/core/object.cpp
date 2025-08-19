@@ -1,6 +1,11 @@
 #include "object.h"
 
 void Object::handleEvents(SDL_Event& event) {
+    for (auto& child : objectToAdd_) {
+        addChild(child);
+    }
+    objectToAdd_.clear();
+
     for (auto& child : children_) {
         if (child->isActive()) {
             child->handleEvents(event);

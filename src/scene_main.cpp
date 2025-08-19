@@ -1,6 +1,7 @@
 #include "scene_main.h"
 #include "player.h"
 #include "enemy.h"
+#include "world/effect.h"
 
 void SceneMain::init() {
     world_size_ = game_.getScreenSize() * 3.0f;
@@ -14,7 +15,8 @@ void SceneMain::init() {
     enemy->init();
     enemy->setTarget(player_);
     enemy->setWorldPosition(world_size_ / 2.f + glm::vec2(200.f));
-    addChild(enemy);
+
+    Effect::addEffectChild(this, "assets/effect/184_3.png", world_size_ / 2.f + glm::vec2(200.f), 1.0f, enemy);
 }
 
 void SceneMain::handleEvents(SDL_Event& event) {

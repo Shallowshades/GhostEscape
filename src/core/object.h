@@ -17,6 +17,7 @@ public:
     virtual void render();
     virtual void clean();
 
+    void safeAddChild(Object* child) { objectToAdd_.push_back(child); }
     virtual void addChild(Object* child) { children_.push_back(child); }
     virtual void removeChild(Object* child) {
         children_.erase(std::remove(children_.begin(), children_.end(), child), children_.end());
@@ -33,6 +34,7 @@ protected:
     Game& game_ = Game::GetInstance();
     ObjectType type_ = ObjectType::NONE;
     std::vector<Object*> children_;
+    std::vector<Object*> objectToAdd_;
     bool is_active_ = true;
     bool isNeedRemove_ = false;
 };
