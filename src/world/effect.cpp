@@ -8,7 +8,9 @@ Effect* Effect::addEffectChild(Object* parent, const std::string& filePath, cons
     effect->sprite_->setLoop(false);
     effect->setWorldPosition(position);
     effect->setNextObject(nextObject);
-    parent->addChild(effect);
+    if (parent) {
+        parent->addChild(effect);
+    }
     return effect;
 }
 

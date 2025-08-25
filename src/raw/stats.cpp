@@ -17,7 +17,7 @@ void Stats::update(float deltaTime) {
     Object::update(deltaTime);
     regenMana(deltaTime);
     if (isInvincible_) {
-        SDL_Log("Invincibility timer: %f", invincibilityTimer_);
+        // SDL_Log("Invincibility timer: %f", invincibilityTimer_);
         invincibilityTimer_ += deltaTime;
         if (invincibilityTimer_ >= invincibilityTime_) {
             isInvincible_ = false;
@@ -51,10 +51,11 @@ void Stats::takeDamage(float amount) {
         return; // cannot damage
     }
     health_ -= amount;
-    if (health_ < 0) {
+    if (health_ <= 0) {
         health_ = 0;
         isAlive_ = false;
     }
+    SDL_Log("isAlive: %d", isAlive_);
     SDL_Log("Health: %f", health_);
     isInvincible_ = true;
     invincibilityTimer_ = 0.0f; // reset invincibility timer

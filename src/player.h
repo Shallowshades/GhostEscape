@@ -3,6 +3,7 @@
 
 #include "core/actor.h"
 #include "affiliate/sprite_animation.h"
+#include "world/effect.h"
 
 class Player : public Actor {
 public:
@@ -16,9 +17,11 @@ public:
     void syncCamera();
     void checkState();
     void changeState(bool moving);
+    void checkIsDead();
 private:
     SpriteAnimation* sprite_idle_ = nullptr;
     SpriteAnimation* sprite_move_ = nullptr;
+    Effect* effect_ = nullptr;
     bool is_moving_ = false;
 };
 

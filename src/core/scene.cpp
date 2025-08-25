@@ -73,30 +73,33 @@ void Scene::clean() {
 }
 
 void Scene::addChild(Object* child) {
-    switch(child->getType()) {
-        case ObjectType::OBJECT_WORLD:
-            children_world_.push_back(static_cast<ObjectWorld*>(child));
-            break;
-        case ObjectType::OBJECT_SCREEN:
-            children_screen_.push_back(static_cast<ObjectScreen*>(child));
-            break;
-        default:
-            Object::addChild(child);
-            break;
+    switch (child->getType()) {
+    case ObjectType::OBJECT_WORLD:
+        children_world_.push_back(static_cast<ObjectWorld*>(child));
+        SDL_Log("Scene: add world child\n");
+        break;
+    case ObjectType::OBJECT_SCREEN:
+        children_screen_.push_back(static_cast<ObjectScreen*>(child));
+        SDL_Log("Scene: add screen child\n");   
+        break;
+    default:
+        Object::addChild(child);
+        SDL_Log("Scene: add child\n");
+        break;
     }
 }
 
 void Scene::removeChild(Object* child) {
-    switch(child->getType()) {
-        case ObjectType::OBJECT_WORLD:
-            children_world_.erase(std::remove(children_world_.begin(), children_world_.end(), static_cast<ObjectWorld*>(child)), children_world_.end());
-            break;
-        case ObjectType::OBJECT_SCREEN:
-            children_screen_.erase(std::remove(children_screen_.begin(), children_screen_.end(), static_cast<ObjectScreen*>(child)), children_screen_.end());
-            break;
-        default:
-            Object::removeChild(child);
-            break;
+    switch (child->getType()) {
+    case ObjectType::OBJECT_WORLD:
+        children_world_.erase(std::remove(children_world_.begin(), children_world_.end(), static_cast<ObjectWorld*>(child)), children_world_.end());
+        break;
+    case ObjectType::OBJECT_SCREEN:
+        children_screen_.erase(std::remove(children_screen_.begin(), children_screen_.end(), static_cast<ObjectScreen*>(child)), children_screen_.end());
+        break;
+    default:
+        Object::removeChild(child);
+        break;
     }
 }
 

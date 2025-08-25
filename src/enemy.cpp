@@ -21,9 +21,11 @@ void Enemy::init() {
 
 void Enemy::update(float deltaTime) {
     Actor::update(deltaTime);
-    animationTarget(target_);
-    move(deltaTime);
-    attack();
+    if (target_->isAlive()) {
+        animationTarget(target_);
+        move(deltaTime);
+        attack();
+    }
 }
 
 void Enemy::animationTarget(Player* target) {
@@ -69,7 +71,7 @@ void Enemy::remove() {
 }
 
 void Enemy::attack() {
-    if (getCollider() == nullptr || target_->getCollider() == nullptr) {
+    if (!collider_ || !target_ || !target_->getCollider()) {
         return;
     }
     if (collider_->isColliding(target_->getCollider())) {
