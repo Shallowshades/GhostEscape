@@ -47,6 +47,7 @@ add_executable(${TARGET}
     src/scene_main.cpp
     src/player.cpp
     src/enemy.cpp
+    src/spawner.cpp
 )
 
 # 链接库

@@ -2,6 +2,7 @@
 #define SCENE_MAIN_H    
 
 #include "core/scene.h"
+#include "spawner.h"
 
 class Player;
 
@@ -20,6 +21,7 @@ private:
 private:
     // glm::vec2 world_size_ = glm::vec2(0);
     Player* player_ = nullptr;
+    Spawner* spawner_ = nullptr;
 };
 
 #endif // SCENE_MAIN_H

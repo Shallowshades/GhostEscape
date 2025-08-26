@@ -3,7 +3,7 @@
 #include "../affiliate/sprite.h"
 
 constexpr float PER_SEC = 1000000000.f; // 1 second in nanoseconds
-constexpr Uint64 PER_MSEC = 1000000; // 1 millisecond in nanoseconds 
+// constexpr Uint64 PER_MSEC = 1000000; // 1 millisecond in nanoseconds 
 
 void Game::run() {
     while (is_running_) {
@@ -12,8 +12,9 @@ void Game::run() {
         update(dt_);
         render();
         auto elapsed = SDL_GetTicksNS() - start;
+        // SDL_Log("Frame Time: %.10f ns\n", elapsed * 1.0);
         if (elapsed < frame_delay_) {
-            SDL_DelayNS((frame_delay_ - elapsed) / PER_MSEC);
+            SDL_DelayNS(frame_delay_ - elapsed);
             dt_ = static_cast<float>(frame_delay_ / PER_SEC);
         }
         else {
@@ -65,7 +66,7 @@ void Game::init(std::string title, int width, int height) {
     SDL_SetRenderLogicalPresentation(renderer_, width, height, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
     // Calculate frame delay
-    frame_delay_ = 1000000000 / FPS_;
+    frame_delay_ = PER_SEC / FPS_;
 
     // Create asset manager
     asset_store_ = new AssetStore(renderer_);

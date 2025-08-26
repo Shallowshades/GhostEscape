@@ -11,12 +11,16 @@ void SceneMain::init() {
     player_->setWorldPosition(world_size_ / 2.f);
     addChild(player_);
 
-    auto enemy = new Enemy();
-    enemy->init();
-    enemy->setTarget(player_);
-    enemy->setWorldPosition(world_size_ / 2.f + glm::vec2(200.f));
+    spawner_ = new Spawner;
+    spawner_->init();
+    spawner_->setTarget(player_);
+    addChild(spawner_);
 
-    Effect::addEffectChild(this, "assets/effect/184_3.png", world_size_ / 2.f + glm::vec2(200.f), 1.0f, enemy);
+    // auto enemy = new Enemy();
+    // enemy->init();
+    // enemy->setTarget(player_);
+    // enemy->setWorldPosition(world_size_ / 2.f + glm::vec2(200.f));
+    // Effect::addEffectChild(this, "assets/effect/184_3.png", world_size_ / 2.f + glm::vec2(200.f), 1.0f, enemy);
 }
 
 void SceneMain::handleEvents(SDL_Event& event) {

@@ -14,7 +14,7 @@ void Enemy::init() {
     deadAnimation_->setLoop(false);
     currentAnimation_ = normalAnimation_;
 
-    setMaxSpeed(6.0f);
+    setMaxSpeed(100.0f);
     collider_ = Collider::addColliderChild(this, currentAnimation_->getSize());
     stats_ = Stats::addStatsChild(this);
 }
@@ -68,6 +68,17 @@ void Enemy::remove() {
     if (deadAnimation_ != nullptr && deadAnimation_->isFinished()) {
         isNeedRemove_ = true;
     }
+}
+
+Enemy* Enemy::addEnemyChild(Object* parent, const glm::vec2& position, Player* target) {
+    auto enemy = new Enemy;
+    enemy->init();
+    enemy->setWorldPosition(position);
+    enemy->setTarget(target);
+    if (parent) {
+        parent->addChild(enemy);
+    }
+    return enemy;
 }
 
 void Enemy::attack() {

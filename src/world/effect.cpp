@@ -15,7 +15,7 @@ Effect* Effect::addEffectChild(Object* parent, const std::string& filePath, cons
 }
 
 void Effect::update(float deltaTime) {
-    Object::update(deltaTime);
+    ObjectWorld::update(deltaTime);     // 特效跟随角色移动, 错误; 实时更新世界对象在世界中的位置
     checkFinished();
 }
 

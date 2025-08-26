@@ -23,7 +23,7 @@ public:
 private:
     int current_frame_;
     int total_frames_;
-    int fps_ = 1;
+    int fps_ = 10;
     float frame_timer = 0.f;
     bool isLoop_ = true;
 };

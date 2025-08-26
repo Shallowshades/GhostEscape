@@ -14,11 +14,13 @@ private:
 public:
     virtual void init() override;
     virtual void update(float deltaTime) override;
+public:
     void animationTarget(Player* target);
     void checkState();
     void changeState(State state);
     void attack();
     void remove();
+    static Enemy* addEnemyChild(Object* parent, const glm::vec2& position, Player* target);
 public:
     void setTarget(Player* target) { target_ = target; }
     Player* getTarget() const { return target_; }
