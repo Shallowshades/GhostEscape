@@ -5,6 +5,7 @@
 #include "player.h"
 #include "spawner.h"
 #include "screen/ui_mouse.h"
+#include "world/spell.h"
 
 class SceneMain : public Scene {
 public:

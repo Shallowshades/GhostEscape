@@ -28,6 +28,12 @@ void SceneMain::init() {
 
 void SceneMain::handleEvents(SDL_Event& event) {
     Scene::handleEvents(event);
+    if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+        if (event.button.button == SDL_BUTTON_LEFT) {
+            auto position = game_.getMousePosition() + camera_position_;
+            Spell::addSpellChild(this, "assets/effect/Thunderstrike w blur.png", position, 120.f, 3.f, Anchor::CENTER);
+        }
+    }
 }
 
 void SceneMain::update(float deltaTime) {

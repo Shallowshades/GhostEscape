@@ -17,6 +17,7 @@ void Enemy::init() {
     setMaxSpeed(100.0f);
     collider_ = Collider::addColliderChild(this, currentAnimation_->getSize());
     stats_ = Stats::addStatsChild(this);
+    setType(ObjectType::ENEMY);
 }
 
 void Enemy::update(float deltaTime) {

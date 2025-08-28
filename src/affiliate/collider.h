@@ -3,8 +3,11 @@
 
 #include "../core/object_affiliate.h"
 
+class Spell;
+
 class Collider : public ObjectAffiliate {
 protected:
+    friend class Spell;
     enum class Type {
         CIRCLE,
         RECTANGLE
