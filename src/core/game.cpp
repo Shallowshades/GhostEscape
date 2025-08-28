@@ -98,6 +98,7 @@ void Game::handleEvents() {
 
 void Game::update(float dt) {
     if (current_scene_) {
+        mouseButtons_ = SDL_GetMouseState(&mousePosition_.x, &mousePosition_.y);
         current_scene_->update(dt);
     }
 }

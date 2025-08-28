@@ -10,6 +10,7 @@ Texture::Texture(const std::string& file_path) {
 Sprite* Sprite::addSpriteChild(ObjectScreen* parent, const std::string& file_path, float scale, [[maybe_unused]] Anchor anchor) {
     auto sprite = new Sprite();
     sprite->init();
+    sprite->setAnchor(anchor);
     sprite->setTexture(Texture(file_path));
     sprite->setScale(scale);
     sprite->setParent(parent);

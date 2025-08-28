@@ -12,6 +12,7 @@ void Collider::render() {
 Collider* Collider::addColliderChild(ObjectScreen* parent, const glm::vec2& size, Type type, [[maybe_unused]] Anchor anchor) {
     Collider* collider = new Collider();
     collider->init();
+    collider->setAnchor(anchor);
     collider->setParent(parent);
     collider->setSize(size);
     collider->setType(type);

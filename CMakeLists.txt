@@ -43,6 +43,7 @@ add_executable(${TARGET}
     src/affiliate/collider.cpp
     src/raw/stats.cpp
     src/world/effect.cpp
+    src/screen/ui_mouse.cpp
     src/main.cpp
     src/scene_main.cpp
     src/player.cpp

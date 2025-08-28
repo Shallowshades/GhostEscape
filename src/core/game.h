@@ -25,7 +25,8 @@ public:
     glm::vec2 getScreenSize() const { return screen_size; }
     AssetStore* getAssetStore() const { return asset_store_; }
     Scene* getCurrentScene() const { return current_scene_; }
-
+    glm::vec2 getMousePosition() const { return mousePosition_; }
+    SDL_MouseButtonFlags getMouseButtons() const { return mouseButtons_; }
 public:
     float randomFloat(float min, float max) {
         return std::uniform_real_distribution<float>(min, max)(gen_);
@@ -62,6 +63,9 @@ private:
     glm::vec2 screen_size = glm::vec2(0);
     bool is_running_ = true;
     Scene* current_scene_ = nullptr;
+
+    glm::vec2 mousePosition_ = glm::vec2(0);
+    SDL_MouseButtonFlags mouseButtons_ = 0;
 
     Uint64 FPS_ = 60;
     Uint64 frame_delay_ = 0;

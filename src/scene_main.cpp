@@ -4,6 +4,7 @@
 #include "world/effect.h"
 
 void SceneMain::init() {
+    SDL_HideCursor();
     world_size_ = game_.getScreenSize() * 3.0f;
     camera_position_ = world_size_ / 2.f - game_.getScreenSize() / 2.f;
     player_ = new Player;
@@ -15,6 +16,8 @@ void SceneMain::init() {
     spawner_->init();
     spawner_->setTarget(player_);
     addChild(spawner_);
+
+    uiMouse_ = UIMouse::addUIMouseChild(this, "assets/UI/29.png", "assets/UI/30.png", 1.f, Anchor::CENTER);
 
     // auto enemy = new Enemy();
     // enemy->init();

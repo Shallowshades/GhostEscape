@@ -2,9 +2,9 @@
 #define SCENE_MAIN_H    
 
 #include "core/scene.h"
+#include "player.h"
 #include "spawner.h"
-
-class Player;
+#include "screen/ui_mouse.h"
 
 class SceneMain : public Scene {
 public:
@@ -22,6 +22,7 @@ private:
     // glm::vec2 world_size_ = glm::vec2(0);
     Player* player_ = nullptr;
     Spawner* spawner_ = nullptr;
+    UIMouse* uiMouse_ = nullptr;
 };
 
 #endif // SCENE_MAIN_H
