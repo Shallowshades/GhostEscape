@@ -30,7 +30,7 @@ find_package(SDL3_ttf REQUIRED)
 find_package(glm REQUIRED)
 
 # 添加可执行文件
-add_executable(${TARGET} 
+add_executable(${TARGET}
     src/core/game.cpp
     src/core/actor.cpp
     src/core/asset_store.cpp
@@ -42,6 +42,7 @@ add_executable(${TARGET}
     src/affiliate/sprite_animation.cpp
     src/affiliate/collider.cpp
     src/raw/stats.cpp
+    src/raw/weapon.cpp
     src/world/spell.cpp
     src/world/effect.cpp
     src/screen/ui_mouse.cpp
@@ -50,6 +51,7 @@ add_executable(${TARGET}
     src/player.cpp
     src/enemy.cpp
     src/spawner.cpp
+    src/weapon_thunder.cpp
 )
 
 # 链接库

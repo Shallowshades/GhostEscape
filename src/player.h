@@ -4,6 +4,7 @@
 #include "core/actor.h"
 #include "affiliate/sprite_animation.h"
 #include "world/effect.h"
+#include "weapon_thunder.h"
 
 class Player : public Actor {
 public:
@@ -22,6 +23,7 @@ private:
     SpriteAnimation* sprite_idle_ = nullptr;
     SpriteAnimation* sprite_move_ = nullptr;
     Effect* effect_ = nullptr;
+    WeaponThunder* weaponThunder_ = nullptr;
     bool is_moving_ = false;
 };
 

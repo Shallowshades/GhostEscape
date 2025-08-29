@@ -13,6 +13,7 @@ void Player::init() {
     collider_ = Collider::addColliderChild(this, sprite_idle_->getSize() / 2.f);
     stats_ = Stats::addStatsChild(this);
     effect_ = Effect::addEffectChild(nullptr, "assets/effect/1764.png", glm::vec2(0.f), 2.f);
+    weaponThunder_ = WeaponThunder::addWeaponThunderChild(this, 2.f, 40.f);
 }
 
 void Player::handleEvents(SDL_Event& event) {
