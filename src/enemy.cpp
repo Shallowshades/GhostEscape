@@ -27,6 +27,8 @@ void Enemy::update(float deltaTime) {
         move(deltaTime);
         attack();
     }
+    checkState();
+    remove();
 }
 
 void Enemy::animationTarget(Player* target) {
@@ -38,14 +40,22 @@ void Enemy::animationTarget(Player* target) {
 }
 
 void Enemy::checkState() {
+    State newState;
+    if (stats_->getHealth() <= 0) {
+        newState = State::DEAD;
+    }
+    else if (stats_->isInvincible()) {
+        newState = State::HURT;
+    } else {
+        newState = State::NORMAL;
+    }
 
+    if (newState != currentState_) {
+        changeState(newState);
+    }
 }
 
 void Enemy::changeState(State state) {
-    if (currentState_ == state) {
-        return;
-    }
-
     currentState_ = state;
     currentAnimation_->setActive(false);
     switch (state) {
