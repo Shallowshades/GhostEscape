@@ -40,7 +40,7 @@ public:
     glm::ivec2 randomIVec2(const glm::ivec2& min, const glm::ivec2& max) {
         return glm::ivec2(randomInt(min.x, max.x), randomInt(min.y, max.y));
     }
-    void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size);
+    void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2 &mask = glm::vec2(1.f));
 public:
     void renderHealthBar(const glm::vec2& position, const glm::vec2& size, float percent, SDL_FColor color);
     void renderFillCircle(const glm::vec2& position, const glm::vec2& size, float alpha);

@@ -25,7 +25,7 @@ void Sprite::render() {
         return;
     }
     auto pos = parrent_->getRenderPosition() + offset_;
-    game_.renderTexture(texture_, pos, size_);
+    game_.renderTexture(texture_, pos, size_, percentage_);
 }
 
 void Sprite::setTexture(const Texture& texture) {

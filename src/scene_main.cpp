@@ -19,11 +19,7 @@ void SceneMain::init() {
 
     uiMouse_ = UIMouse::addUIMouseChild(this, "assets/UI/29.png", "assets/UI/30.png", 1.f, Anchor::CENTER);
 
-    // auto enemy = new Enemy();
-    // enemy->init();
-    // enemy->setTarget(player_);
-    // enemy->setWorldPosition(world_size_ / 2.f + glm::vec2(200.f));
-    // Effect::addEffectChild(this, "assets/effect/184_3.png", world_size_ / 2.f + glm::vec2(200.f), 1.0f, enemy);
+    hudStats_ = HUDStats::addHUDStatsChild(this, player_, glm::vec2(30.f));
 }
 
 void SceneMain::handleEvents(SDL_Event& event) {

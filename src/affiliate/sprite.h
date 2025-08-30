@@ -27,9 +27,12 @@ public:
     void setAngle(float angle) { texture_.angle = angle; }
     bool isFinished() const { return isFinished_; }
     void setFinished(bool finished) { isFinished_ = finished; }
+    glm::vec2 getPercentage() const { return percentage_; }
+    void setPercentage(const glm::vec2& percentage) { percentage_ = percentage; }
 protected:
     Texture texture_; // Sprite texture
     bool isFinished_ = false;
+    glm::vec2 percentage_ = glm::vec2(1.f);
 };
 
 #endif // SPRITE_H

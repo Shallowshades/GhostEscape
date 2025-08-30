@@ -6,6 +6,7 @@
 #include "spawner.h"
 #include "screen/ui_mouse.h"
 #include "world/spell.h"
+#include "screen/hud_stats.h"
 
 class SceneMain : public Scene {
 public:
@@ -24,6 +25,7 @@ private:
     Player* player_ = nullptr;
     Spawner* spawner_ = nullptr;
     UIMouse* uiMouse_ = nullptr;
+    HUDStats* hudStats_ = nullptr;
 };
 
 #endif // SCENE_MAIN_H

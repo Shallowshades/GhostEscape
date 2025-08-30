@@ -137,14 +137,20 @@ void Game::clean() {
     SDL_Quit();
 }
 
-void Game::renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size) {
+void Game::renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask) {
+    SDL_FRect src_rect = {
+        texture.src_rect.x,
+        texture.src_rect.y,
+        texture.src_rect.w * mask.x,
+        texture.src_rect.h * mask.y
+    };
     SDL_FRect dst_rect = {
         position.x,
         position.y,
-        size.x,
-        size.y
+        size.x * mask.x,
+        size.y * mask.y
     };
-    SDL_RenderTextureRotated(renderer_, texture.texture, &texture.src_rect, &dst_rect, texture.angle, nullptr, texture.is_flipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+    SDL_RenderTextureRotated(renderer_, texture.texture, &src_rect, &dst_rect, texture.angle, nullptr, texture.is_flipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }
 
 void Game::renderHealthBar(const glm::vec2& position, const glm::vec2& size, float percent, SDL_FColor fcolor) {

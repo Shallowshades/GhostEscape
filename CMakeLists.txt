@@ -47,6 +47,7 @@ add_executable(${TARGET}
     src/world/spell.cpp
     src/world/effect.cpp
     src/screen/ui_mouse.cpp
+    src/screen/hud_stats.cpp
     src/main.cpp
     src/scene_main.cpp
     src/player.cpp
