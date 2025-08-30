@@ -3,6 +3,7 @@
 #include "affiliate/sprite_animation.h"
 #include "affiliate/collider.h"
 #include "raw/stats.h"
+#include "affiliate/affiliate_bar.h"
 
 void Enemy::init() {
     Actor::init();
@@ -17,6 +18,9 @@ void Enemy::init() {
     setMaxSpeed(100.0f);
     collider_ = Collider::addColliderChild(this, currentAnimation_->getSize());
     stats_ = Stats::addStatsChild(this);
+    auto size = normalAnimation_->getSize();
+    healthBar_ = AffiliateBar::addAffiliateBarChild(this, glm::vec2(size.x - 10, 10), Anchor::TOP_CENTER);
+    healthBar_->setOffset(healthBar_->getOffset() + glm::vec2(0, size.y / 2.f - 5.f));
     setType(ObjectType::ENEMY);
 }
 
@@ -46,7 +50,8 @@ void Enemy::checkState() {
     }
     else if (stats_->isInvincible()) {
         newState = State::HURT;
-    } else {
+    }
+    else {
         newState = State::NORMAL;
     }
 

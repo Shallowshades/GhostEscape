@@ -42,6 +42,7 @@ public:
     }
     void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size);
 public:
+    void renderHealthBar(const glm::vec2& position, const glm::vec2& size, float percent, SDL_FColor color);
     void renderFillCircle(const glm::vec2& position, const glm::vec2& size, float alpha);
     void drawGrid(const glm::vec2& top_left, const glm::vec2& bottom_right, float grid_width, SDL_FColor fcolor);
     void drawBoundary(const glm::vec2& top_left, const glm::vec2& bottom_right, float boundary_width, SDL_FColor fcolor);
