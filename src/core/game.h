@@ -27,6 +27,12 @@ public:
     Scene* getCurrentScene() const { return current_scene_; }
     glm::vec2 getMousePosition() const { return mousePosition_; }
     SDL_MouseButtonFlags getMouseButtons() const { return mouseButtons_; }
+    void setScore(int score);
+    int getScore() const { return score_; }
+    void setHighScore(int highScore) { highScore_ = highScore; }
+    int getHighScore() const { return highScore_; }
+public:
+    void addScore(int score);
 public:
     float randomFloat(float min, float max) {
         return std::uniform_real_distribution<float>(min, max)(gen_);
@@ -40,7 +46,7 @@ public:
     glm::ivec2 randomIVec2(const glm::ivec2& min, const glm::ivec2& max) {
         return glm::ivec2(randomInt(min.x, max.x), randomInt(min.y, max.y));
     }
-    void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2 &mask = glm::vec2(1.f));
+    void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask = glm::vec2(1.f));
 public:
     void renderHealthBar(const glm::vec2& position, const glm::vec2& size, float percent, SDL_FColor color);
     void renderFillCircle(const glm::vec2& position, const glm::vec2& size, float alpha);
@@ -72,6 +78,9 @@ private:
     Uint64 FPS_ = 60;
     Uint64 frame_delay_ = 0;
     float dt_ = 0.0f;
+
+    int score_ = 0;
+    int highScore_ = 0;
 
     SDL_Window* window_ = nullptr;
     SDL_Renderer* renderer_ = nullptr;

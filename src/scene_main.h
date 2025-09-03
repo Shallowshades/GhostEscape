@@ -7,6 +7,7 @@
 #include "screen/ui_mouse.h"
 #include "world/spell.h"
 #include "screen/hud_stats.h"
+#include "screen/hud_text.h"
 
 class SceneMain : public Scene {
 public:
@@ -20,12 +21,14 @@ public:
     virtual void clean() override;
 private:
     void renderBackground();
+    void updateScore();
 private:
     // glm::vec2 world_size_ = glm::vec2(0);
     Player* player_ = nullptr;
     Spawner* spawner_ = nullptr;
     UIMouse* uiMouse_ = nullptr;
     HUDStats* hudStats_ = nullptr;
+    HUDText* hudTextScore_ = nullptr;
 };
 
 #endif // SCENE_MAIN_H

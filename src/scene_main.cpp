@@ -17,9 +17,11 @@ void SceneMain::init() {
     spawner_->setTarget(player_);
     addChild(spawner_);
 
+    hudStats_ = HUDStats::addHUDStatsChild(this, player_, glm::vec2(30.f));
+    hudTextScore_ = HUDText::addHUDTextChild(this, "Score: 0", glm::vec2(game_.getScreenSize().x - 120.f, 30.f), glm::vec2(200, 50));
+
     uiMouse_ = UIMouse::addUIMouseChild(this, "assets/UI/29.png", "assets/UI/30.png", 1.f, Anchor::CENTER);
 
-    hudStats_ = HUDStats::addHUDStatsChild(this, player_, glm::vec2(30.f));
 }
 
 void SceneMain::handleEvents(SDL_Event& event) {
@@ -28,6 +30,7 @@ void SceneMain::handleEvents(SDL_Event& event) {
 
 void SceneMain::update(float deltaTime) {
     Scene::update(deltaTime);
+    updateScore();
 }
 
 void SceneMain::render() {
@@ -44,4 +47,8 @@ void SceneMain::renderBackground() {
     auto end = world_size_ - camera_position_;
     game_.drawGrid(start, end, 80.0f, SDL_FColor{ 0.5f, 0.5f, 0.5f, 1.0f });
     game_.drawBoundary(start, end, 5.0f, SDL_FColor{ 1.0f, 1.0f, 1.0f, 1.0f });
+}
+
+void SceneMain::updateScore() {
+    hudTextScore_->setText("Score: " + std::to_string(game_.getScore()));
 }

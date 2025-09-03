@@ -15,7 +15,7 @@ void Player::init() {
     stats_ = Stats::addStatsChild(this);
     effect_ = Effect::addEffectChild(nullptr, "assets/effect/1764.png", glm::vec2(0.f), 2.f);
     weaponThunder_ = WeaponThunder::addWeaponThunderChild(this, 2.f, 40.f);
-    TextLabel::addTextLabelChild(this, "这是主角", "assets/font/VonwaonBitmap-16px.ttf", 16);
+    // TextLabel::addTextLabelChild(this, "这是主角", "assets/font/VonwaonBitmap-16px.ttf", 16);
 }
 
 void Player::handleEvents(SDL_Event& event) {

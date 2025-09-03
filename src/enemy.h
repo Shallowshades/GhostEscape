@@ -32,6 +32,7 @@ private:
     SpriteAnimation* deadAnimation_ = nullptr;
     State currentState_ = State::NORMAL;
     float timer_ = 0.f;
+    int score_ = 10;
 };
 
 #endif // ENEMY_H
