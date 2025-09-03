@@ -9,7 +9,7 @@ class AffiliateBar;
 class Actor : public ObjectWorld {
 public:
     virtual void update(float delta) override;
-    virtual void takeDamage(float amount);
+    virtual void takeDamage(float amount) override;
 public:
     // getters and setters
     glm::vec2 getVelocity() const { return velocity_; }

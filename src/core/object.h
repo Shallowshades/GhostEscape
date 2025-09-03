@@ -1,8 +1,6 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include <bits/stdc++.h>
-
 #include "game.h"
 #include "defines.h"
 
