@@ -64,7 +64,7 @@ void AssetStore::loadFont(const std::string& filePath, int fontSize) {
 
 SDL_Texture* AssetStore::getTexture(const std::string& filePath) {
     auto iter = textures_.find(filePath);
-    if (iter != textures_.end()) {
+    if (iter == textures_.end()) {
         loadTexture(filePath); // Ensure the image is loaded
         iter = textures_.find(filePath);
     }
@@ -77,7 +77,7 @@ SDL_Texture* AssetStore::getTexture(const std::string& filePath) {
 
 Mix_Chunk* AssetStore::getSound(const std::string& filePath) {
     auto iter = sounds_.find(filePath);
-    if (iter != sounds_.end()) {
+    if (iter == sounds_.end()) {
         loadSound(filePath); // Ensure the sound is loaded
         iter = sounds_.find(filePath);
     }
@@ -90,7 +90,7 @@ Mix_Chunk* AssetStore::getSound(const std::string& filePath) {
 
 Mix_Music* AssetStore::getMusic(const std::string& filePath) {
     auto iter = musics_.find(filePath);
-    if (iter != musics_.end()) {
+    if (iter == musics_.end()) {
         loadMusic(filePath); // Ensure the music is loaded
         iter = musics_.find(filePath);
     }
@@ -104,7 +104,7 @@ Mix_Music* AssetStore::getMusic(const std::string& filePath) {
 TTF_Font* AssetStore::getFont(const std::string& filePath, int fontSize)
 {
     auto iter = fonts_.find(filePath + std::to_string(fontSize));
-    if (iter != fonts_.end()) {
+    if (iter == fonts_.end()) {
         loadFont(filePath, fontSize); // Ensure the font is loaded
         iter = fonts_.find(filePath + std::to_string(fontSize));
     }

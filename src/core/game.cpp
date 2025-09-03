@@ -65,6 +65,8 @@ void Game::init(std::string title, int width, int height) {
     // Set logical resolution
     SDL_SetRenderLogicalPresentation(renderer_, width, height, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
+    ttfEngine_ = TTF_CreateRendererTextEngine(renderer_);
+
     // Calculate frame delay
     frame_delay_ = PER_SEC / FPS_;
 
@@ -122,6 +124,9 @@ void Game::clean() {
         asset_store_->clean();
         delete asset_store_;
         asset_store_ = nullptr;
+    }
+    if (ttfEngine_) {
+        TTF_DestroyRendererTextEngine(ttfEngine_);
     }
     if (renderer_) {
         SDL_DestroyRenderer(renderer_);
@@ -197,4 +202,9 @@ void Game::drawBoundary(const glm::vec2& top_left, const glm::vec2& bottom_right
         SDL_RenderRect(renderer_, &rect);
     }
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1); // Reset color to black
+}
+
+TTF_Text* Game::createTTFText(const std::string& text, const std::string& fontPath, int fontSize) {
+    auto font = asset_store_->getFont(fontPath, fontSize);
+    return TTF_CreateText(ttfEngine_, font, text.c_str(), 0);
 }

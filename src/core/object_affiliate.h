@@ -10,8 +10,8 @@ public:
 public:
     void setOffsetByAnchor(Anchor anchor);
 public:
-    ObjectScreen* getParent() const { return parrent_; }
-    void setParent(ObjectScreen* parent) { parrent_ = parent; }
+    ObjectScreen* getParent() const { return parent_; }
+    void setParent(ObjectScreen* parent) { parent_ = parent; }
     glm::vec2 getOffset() const { return offset_; }
     void setOffset(const glm::vec2& offset) { offset_ = offset; }
     glm::vec2 getSize() const { return size_; }
@@ -20,7 +20,7 @@ public:
     Anchor getAnchor() const { return anchor_; }
     void setAnchor(Anchor anchor) { anchor_ = anchor; }
 protected:
-    ObjectScreen* parrent_ = nullptr;
+    ObjectScreen* parent_ = nullptr;
     glm::vec2 offset_ = glm::vec2(0, 0);
     glm::vec2 size_ = glm::vec2(0, 0);
     Anchor anchor_ = Anchor::CENTER;

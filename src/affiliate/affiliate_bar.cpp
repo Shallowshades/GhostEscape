@@ -13,7 +13,7 @@ AffiliateBar* AffiliateBar::addAffiliateBarChild(ObjectScreen* parent, glm::vec2
 }
 
 void AffiliateBar::render() {
-    auto position = parrent_->getRenderPosition() + offset_;
+    auto position = parent_->getRenderPosition() + offset_;
     if (percentage_ > 0.7f) {
         game_.renderHealthBar(position, size_, percentage_, colorHigh_);
     }

@@ -46,6 +46,7 @@ public:
     void renderFillCircle(const glm::vec2& position, const glm::vec2& size, float alpha);
     void drawGrid(const glm::vec2& top_left, const glm::vec2& bottom_right, float grid_width, SDL_FColor fcolor);
     void drawBoundary(const glm::vec2& top_left, const glm::vec2& bottom_right, float boundary_width, SDL_FColor fcolor);
+    TTF_Text* createTTFText(const std::string& text, const std::string& fontPath, int fontSize = 16);
 public:
     void run();
     void init(std::string title, int width, int height);
@@ -78,6 +79,7 @@ private:
     std::mt19937 gen_ = std::mt19937(std::random_device{}());
 
     AssetStore* asset_store_ = nullptr;
+    TTF_TextEngine* ttfEngine_ = nullptr;
 };
 
 #endif // GAME_H
