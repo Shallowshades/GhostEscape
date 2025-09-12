@@ -42,6 +42,14 @@ void Player::clean() {
     Actor::clean();
 }
 
+void Player::takeDamage(float damage) {
+    if (!stats_ || stats_->isInvincible()) {
+        return;
+    }
+    Actor::takeDamage(damage);
+    game_.playSound("assets/sound/hit-flesh-02-266309.mp3");
+}
+
 void Player::keyboardControl() {
     auto currentKeyStates = SDL_GetKeyboardState(nullptr);
     if (currentKeyStates[SDL_SCANCODE_W]) {
@@ -101,9 +109,10 @@ void Player::changeState(bool isMoving) {
 void Player::checkIsDead() {
     if (!stats_->isAlive()) {
         SDL_Log("Player: is dead\n");
-        effect_->setActive(false);
+        // effect_->setActive(false);
         effect_->setWorldPosition(getWorldPosition());
         game_.getCurrentScene()->safeAddChild(effect_);
         setActive(false);
+        game_.playSound("assets/sound/female-scream-02-89290.mp3");
     }
 }

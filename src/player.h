@@ -13,6 +13,7 @@ public:
     virtual void update(float deltaTime) override;
     virtual void render() override;
     virtual void clean() override;
+    virtual void takeDamage(float damage) override;
 public:
     void keyboardControl();
     void syncCamera();

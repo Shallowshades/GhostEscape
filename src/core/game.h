@@ -34,6 +34,15 @@ public:
 public:
     void addScore(int score);
 public:
+    void playMusic(const std::string& musicPath, bool loop = true) { Mix_PlayMusic(asset_store_->getMusic(musicPath), loop ? -1 : 0); }
+    void playSound(const std::string& soundPath) { Mix_PlayChannel(-1, asset_store_->getSound(soundPath), 0); }
+    void stopMusic() { Mix_HaltMusic(); }
+    void stopSound() { Mix_HaltChannel(-1); }
+    void pauseMusic() { Mix_PausedMusic(); }
+    void pauseSound() { Mix_Pause(-1); }
+    void resumeMusic() { Mix_ResumeMusic(); }
+    void resumeSound() { Mix_Resume(-1); }
+public:
     float randomFloat(float min, float max) {
         return std::uniform_real_distribution<float>(min, max)(gen_);
     }
