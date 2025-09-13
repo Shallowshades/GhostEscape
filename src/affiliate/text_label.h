@@ -14,7 +14,7 @@ public:
     void setFont(const std::string& fontPath, int fontSize);
     void setFontPath(const std::string& fontPath);
     void setFontSize(int fontSize);
-    void setText(const std::string& text) { TTF_SetTextString(ttfText_, text.c_str(), text.length()); }
+    void setText(const std::string& text);
     std::string getText() const { return ttfText_->text; }
 private:
     void updateSize();

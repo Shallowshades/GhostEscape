@@ -41,12 +41,19 @@ void TextLabel::setFontPath(const std::string& fontPath) {
     fontPath_ = fontPath;
     auto font = game_.getAssetStore()->getFont(fontPath_, fontSize_);
     TTF_SetTextFont(ttfText_, font);
+    updateSize();
 }
 
 void TextLabel::setFontSize(int fontSize) {
     fontSize_ = fontSize;
     auto font = game_.getAssetStore()->getFont(fontPath_, fontSize_);
     TTF_SetTextFont(ttfText_, font);
+    updateSize();
+}
+
+void TextLabel::setText(const std::string& text) {
+    TTF_SetTextString(ttfText_, text.c_str(), text.length());
+    updateSize();
 }
 
 void TextLabel::updateSize() {

@@ -66,6 +66,7 @@ public:
     void drawBoundary(const glm::vec2& top_left, const glm::vec2& bottom_right, float boundary_width, SDL_FColor fcolor);
     TTF_Text* createTTFText(const std::string& text, const std::string& fontPath, int fontSize = 16);
     bool isMouseInRect(const glm::vec2& topLeft, const glm::vec2& bottomRight);
+    std::string loadTextFile(const std::string& filePath);
 public:
     void run();
     void init(std::string title, int width, int height);

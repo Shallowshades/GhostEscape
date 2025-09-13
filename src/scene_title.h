@@ -3,6 +3,7 @@
 
 #include "core/scene.h"
 #include "screen/hud_button.h"
+#include "screen/hud_text.h"
 
 class SceneTitle : public Scene {
 public:
@@ -16,12 +17,14 @@ private:
     void updateColor();
     void checkButtonQuit();
     void checkButtonStart();
+    void checkButtonCredits();
 protected:
     SDL_FColor boundaryColor_ = { 0.5, 0.5, 0.5, 1 };
     float colorTimer_ = 0.f;
     HUDButton* buttonStart_ = nullptr;
     HUDButton* buttonCredits_ = nullptr;
     HUDButton* buttonQuit_ = nullptr;
+    HUDText* creditsText_ = nullptr;
 };
 
 #endif // SCENE_TITLE_H

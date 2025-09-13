@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "game.h"
 #include "../scene_title.h"
 #include "../scene_main.h"
@@ -240,4 +242,14 @@ bool Game::isMouseInRect(const glm::vec2& topLeft, const glm::vec2& bottomRight)
         return true;
     }
     return false;
+}
+
+std::string Game::loadTextFile(const std::string& filePath) {
+    std::ifstream file(filePath);
+    std::string line;
+    std::string text;
+    while (std::getline(file, line)) {
+        text += line + '\n';
+    }
+    return text;
 }
