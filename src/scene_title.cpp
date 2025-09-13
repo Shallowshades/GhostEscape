@@ -1,4 +1,5 @@
 #include <cmath>
+#include <fstream>
 
 #include "scene_title.h"
 #include "scene_main.h"
@@ -7,6 +8,7 @@
 
 void SceneTitle::init() {
     Scene::init();
+    loadData("assets/score.dat");
     SDL_ShowCursor();
     game_.playMusic("assets/bgm/Spooky music.mp3");
     auto size = glm::vec2(game_.getScreenSize().x / 2.f, game_.getScreenSize().y / 3.f);
@@ -55,6 +57,16 @@ void SceneTitle::render() {
 
 void SceneTitle::clean() {
     Scene::clean();
+}
+
+void SceneTitle::loadData(const std::string& filePath) {
+    int score = 0;
+    std::ifstream file(filePath, std::ios::binary);
+    if (file.is_open()) {
+        file.read(reinterpret_cast<char*>(&score), sizeof(score));
+        file.close();
+    }
+    game_.setHighScore(score);
 }
 
 void SceneTitle::renderBackground() {

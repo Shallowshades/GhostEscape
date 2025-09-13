@@ -2,6 +2,7 @@
 #define SCENE_H
 
 #include <vector>
+#include <string>
 
 #include <glm/glm.hpp>
 
@@ -21,6 +22,9 @@ public:
 
     virtual void addChild(Object* child) override;
     virtual void removeChild(Object* child) override;  // remove but not delete
+
+    virtual void saveData([[maybe_unused]] const std::string& filePath) {}
+    virtual void loadData([[maybe_unused]] const std::string& filePath) {}
 
     glm::vec2 worldToScreenPosition(const glm::vec2& worldPosition) const {
         return worldPosition - camera_position_;

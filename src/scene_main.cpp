@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "scene_main.h"
 #include "scene_title.h"
 #include "player.h"
@@ -48,6 +50,7 @@ void SceneMain::update(float deltaTime) {
     checkButtonBack();
     if (player_ && !player_->isActive()) {
         endTimer_->start();
+        saveData("assets/score.dat");
     }
     checkEndTimer();
 }
@@ -59,6 +62,15 @@ void SceneMain::render() {
 
 void SceneMain::clean() {
     Scene::clean();
+}
+
+void SceneMain::saveData(const std::string& filePath) {
+    auto score = game_.getHighScore();
+    std::ofstream file(filePath, std::ios::binary);
+    if (file.is_open()) {
+        file.write(reinterpret_cast<const char*>(&score), sizeof(score));
+        file.close();
+    }
 }
 
 void SceneMain::renderBackground() {
@@ -88,6 +100,7 @@ void SceneMain::checkButtonRestart() {
     if (!buttonRestart_->getIsTrigger()) {
         return;
     }
+    saveData("assets/score.dat");
     game_.setScore(0);
     auto scene = new SceneMain();
     game_.safeChangeScene(scene);
@@ -97,6 +110,7 @@ void SceneMain::checkButtonBack() {
     if (!buttonBack_->getIsTrigger()) {
         return;
     }
+    saveData("assets/score.dat");
     game_.setScore(0);
     auto scene = new SceneTitle();
     game_.safeChangeScene(scene);

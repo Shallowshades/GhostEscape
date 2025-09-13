@@ -12,6 +12,7 @@ public:
     void update(float delta) override;
     void render() override;
     void clean() override;
+    virtual void loadData(const std::string& filePath) override;
 private:
     void renderBackground();
     void updateColor();

@@ -21,6 +21,8 @@ public:
     virtual void update(float deltaTime) override;
     virtual void render() override;
     virtual void clean() override;
+
+    virtual void saveData(const std::string& filePath);
 private:
     void renderBackground();
     void updateScore();
