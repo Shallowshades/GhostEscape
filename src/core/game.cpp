@@ -9,6 +9,10 @@ constexpr float PER_SEC = 1000000000.f; // 1 second in nanoseconds
 void Game::run() {
     while (is_running_) {
         auto start = SDL_GetTicksNS();
+        if (nextScene_) {
+            changeScene(nextScene_);
+            nextScene_ = nullptr;
+        }
         handleEvents();
         update(dt_);
         render();
@@ -153,6 +157,15 @@ void Game::setScore(int score) {
 
 void Game::addScore(int score) {
     setScore(score_ + score);
+}
+
+void Game::changeScene(Scene* scene) {
+    if (current_scene_) {
+        current_scene_->clean();
+        delete current_scene_;
+    }
+    current_scene_ = scene;
+    current_scene_->init();
 }
 
 void Game::renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask) {

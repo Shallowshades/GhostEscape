@@ -15,6 +15,7 @@ private:
     void renderBackground();
     void updateColor();
     void checkButtonQuit();
+    void checkButtonStart();
 protected:
     SDL_FColor boundaryColor_ = { 0.5, 0.5, 0.5, 1 };
     float colorTimer_ = 0.f;

@@ -34,7 +34,7 @@ void HUDButton::handleEvents(SDL_Event& event) {
     }
 }
 
-void HUDButton::update(float delta) {
+void HUDButton::update([[maybe_unused]] float delta) {
     checkHover();
     checkState();
 }
