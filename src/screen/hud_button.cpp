@@ -79,3 +79,9 @@ bool HUDButton::getIsTrigger() {
     }
     return false;
 }
+
+void HUDButton::setScale(float scale) {
+    spriteNormal_->setScale(scale);
+    spriteHover_->setScale(scale);
+    spritePress_->setScale(scale);
+}

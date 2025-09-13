@@ -5,10 +5,11 @@
 #include "player.h"
 #include "spawner.h"
 #include "screen/ui_mouse.h"
-#include "world/spell.h"
 #include "screen/hud_stats.h"
 #include "screen/hud_text.h"
 #include "screen/hud_button.h"
+#include "world/spell.h"
+#include "raw/timer.h"
 
 class SceneMain : public Scene {
 public:
@@ -26,6 +27,7 @@ private:
     void checkButtonPause();
     void checkButtonRestart();
     void checkButtonBack();
+    void checkEndTimer();
 private:
     // glm::vec2 world_size_ = glm::vec2(0);
     Player* player_ = nullptr;
@@ -36,6 +38,7 @@ private:
     HUDButton* buttonPause_ = nullptr;
     HUDButton* buttonRestart_ = nullptr;
     HUDButton* buttonBack_ = nullptr;
+    Timer* endTimer_ = nullptr;
 };
 
 #endif // SCENE_MAIN_H

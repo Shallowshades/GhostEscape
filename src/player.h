@@ -3,6 +3,7 @@
 
 #include "core/actor.h"
 #include "affiliate/sprite_animation.h"
+#include "raw/timer.h"
 #include "world/effect.h"
 #include "weapon_thunder.h"
 
@@ -25,6 +26,7 @@ private:
     SpriteAnimation* sprite_move_ = nullptr;
     Effect* effect_ = nullptr;
     WeaponThunder* weaponThunder_ = nullptr;
+    Timer* flashTimer_ = nullptr;
     bool is_moving_ = false;
 };
 

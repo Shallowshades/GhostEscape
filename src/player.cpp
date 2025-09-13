@@ -2,11 +2,14 @@
 #include "core/scene.h"
 #include "affiliate/sprite_animation.h"
 #include "affiliate/collider.h"
-#include "raw/stats.h"
 #include "affiliate/text_label.h"
+#include "raw/stats.h"
+#include "raw/timer.h"
 
 void Player::init() {
     Actor::init();
+    flashTimer_ = Timer::addTimerChild(this, 0.4f);
+    flashTimer_->start();
     max_speed_ = 500.0f;
     sprite_idle_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-idle.png", 2.f);
     sprite_move_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-move.png", 2.f);
@@ -37,6 +40,9 @@ void Player::update(float deltaTime) {
 }
 
 void Player::render() {
+    if (stats_->isInvincible() && flashTimer_->getProgress() < 0.5f) {
+        return;
+    }
     Actor::render();
     // game_.drawBoundary(render_position_, render_position_ + glm::vec2(20.f), 5.0f, { 1.f, 0.f, 0.f, 1.f });
 }

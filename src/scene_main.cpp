@@ -15,6 +15,8 @@ void SceneMain::init() {
     player_->setWorldPosition(world_size_ / 2.f);
     addChild(player_);
 
+    endTimer_ = Timer::addTimerChild(this);
+
     spawner_ = new Spawner;
     spawner_->init();
     spawner_->setTarget(player_);
@@ -44,6 +46,10 @@ void SceneMain::update(float deltaTime) {
     checkButtonRestart();
     checkButtonPause();
     checkButtonBack();
+    if (player_ && !player_->isActive()) {
+        endTimer_->start();
+    }
+    checkEndTimer();
 }
 
 void SceneMain::render() {
@@ -82,6 +88,7 @@ void SceneMain::checkButtonRestart() {
     if (!buttonRestart_->getIsTrigger()) {
         return;
     }
+    game_.setScore(0);
     auto scene = new SceneMain();
     game_.safeChangeScene(scene);
 }
@@ -90,6 +97,20 @@ void SceneMain::checkButtonBack() {
     if (!buttonBack_->getIsTrigger()) {
         return;
     }
+    game_.setScore(0);
     auto scene = new SceneTitle();
     game_.safeChangeScene(scene);
+}
+
+void SceneMain::checkEndTimer() {
+    if (!endTimer_->timeOut()) {
+        return;
+    }
+    pause();
+    buttonRestart_->setRenderPosition(game_.getScreenSize() / 2.f - glm::vec2(200.f, 0.f));
+    buttonRestart_->setScale(4.f);
+    buttonBack_->setRenderPosition(game_.getScreenSize() / 2.f + glm::vec2(200.f, 0.f));
+    buttonBack_->setScale(4.f);
+    buttonPause_->setActive(false);
+    endTimer_->stop();
 }

@@ -21,6 +21,7 @@ public:
     void setIsHover(bool isHover) { isHover_ = isHover; }
     void setIsPress(bool isPress) { isPress_ = isPress; }
     void setIsTrigger(bool isTrigger) { isTrigger_ = isTrigger; }
+    void setScale(float scale);
 protected:
     Sprite* spriteNormal_ = nullptr;
     Sprite* spriteHover_ = nullptr;
