@@ -2,6 +2,7 @@
 #define SCENE_TITLE_H
 
 #include "core/scene.h"
+#include "screen/hud_button.h"
 
 class SceneTitle : public Scene {
 public:
@@ -13,9 +14,13 @@ public:
 private:
     void renderBackground();
     void updateColor();
+    void checkButtonQuit();
 protected:
     SDL_FColor boundaryColor_ = { 0.5, 0.5, 0.5, 1 };
     float colorTimer_ = 0.f;
+    HUDButton* buttonStart_ = nullptr;
+    HUDButton* buttonCredits_ = nullptr;
+    HUDButton* buttonQuit_ = nullptr;
 };
 
 #endif // SCENE_TITLE_H

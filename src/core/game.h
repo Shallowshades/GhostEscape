@@ -33,6 +33,7 @@ public:
     int getHighScore() const { return highScore_; }
 public:
     void addScore(int score);
+    void quit() { is_running_ = false; }
 public:
     void playMusic(const std::string& musicPath, bool loop = true) { Mix_PlayMusic(asset_store_->getMusic(musicPath), loop ? -1 : 0); }
     void playSound(const std::string& soundPath) { Mix_PlayChannel(-1, asset_store_->getSound(soundPath), 0); }
@@ -62,6 +63,7 @@ public:
     void drawGrid(const glm::vec2& top_left, const glm::vec2& bottom_right, float grid_width, SDL_FColor fcolor);
     void drawBoundary(const glm::vec2& top_left, const glm::vec2& bottom_right, float boundary_width, SDL_FColor fcolor);
     TTF_Text* createTTFText(const std::string& text, const std::string& fontPath, int fontSize = 16);
+    bool isMouseInRect(const glm::vec2& topLeft, const glm::vec2& bottomRight);
 public:
     void run();
     void init(std::string title, int width, int height);

@@ -221,3 +221,10 @@ TTF_Text* Game::createTTFText(const std::string& text, const std::string& fontPa
     auto font = asset_store_->getFont(fontPath, fontSize);
     return TTF_CreateText(ttfEngine_, font, text.c_str(), 0);
 }
+
+bool Game::isMouseInRect(const glm::vec2& topLeft, const glm::vec2& bottomRight) {
+    if (mousePosition_.x >= topLeft.x && mousePosition_.x <= bottomRight.x && mousePosition_.y >= topLeft.y && mousePosition_.y <= bottomRight.y) {
+        return true;
+    }
+    return false;
+}
