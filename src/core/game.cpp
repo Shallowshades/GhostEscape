@@ -1,4 +1,5 @@
 #include "game.h"
+#include "../scene_title.h"
 #include "../scene_main.h"
 #include "../affiliate/sprite.h"
 
@@ -78,7 +79,8 @@ void Game::init(std::string title, int width, int height) {
     }
 
     // Create scene
-    current_scene_ = new SceneMain();
+    // current_scene_ = new SceneMain();
+    current_scene_ = new SceneTitle();
     current_scene_->init();
 }
 
