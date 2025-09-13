@@ -1,33 +1,44 @@
 #include "scene.h"
 
-void Scene::handleEvents(SDL_Event& event) {
+bool Scene::handleEvents(SDL_Event& event) {
+    // 屏幕对象多为hud, text, button, label等必须处理的事件
+    // 世界对象是为暂停对象
+    for (auto& child : children_screen_) {
+        if (child->isActive()) {
+            if (child->handleEvents(event)) {
+                return true;
+            }
+        }
+    }
+    if (isPause_) {
+        return false;
+    }
     Object::handleEvents(event);
     for (auto& child : children_world_) {
         if (child->isActive()) {
-            child->handleEvents(event);
+            if (child->handleEvents(event)) {
+                return true;
+            }
         }
     }
-    for (auto& child : children_screen_) {
-        if (child->isActive()) {
-            child->handleEvents(event);
-        }
-    }
+    return false;
 }
 
 void Scene::update(float deltaTime) {
-    Object::update(deltaTime);
-    for (auto iter = children_world_.begin(); iter != children_world_.end(); ) {
-        if ((*iter)->isNeedRemove()) {
-            (*iter)->clean();
-            delete* iter;
-            iter = children_world_.erase(iter);
-            SDL_Log("Scene: remove world child\n");
-        }
-        else {
-            if ((*iter)->isActive()) {
-                (*iter)->update(deltaTime);
+    if (!isPause_) {
+        Object::update(deltaTime);
+        for (auto iter = children_world_.begin(); iter != children_world_.end(); ) {
+            if ((*iter)->isNeedRemove()) {
+                (*iter)->clean();
+                delete* iter;
+                iter = children_world_.erase(iter);
             }
-            ++iter;
+            else {
+                if ((*iter)->isActive()) {
+                    (*iter)->update(deltaTime);
+                }
+                ++iter;
+            }
         }
     }
     for (auto iter = children_screen_.begin(); iter != children_screen_.end(); ) {
@@ -35,7 +46,6 @@ void Scene::update(float deltaTime) {
             (*iter)->clean();
             delete* iter;
             iter = children_screen_.erase(iter);
-            SDL_Log("Scene: remove screen child\n");
         }
         else {
             if ((*iter)->isActive()) {
@@ -77,15 +87,12 @@ void Scene::addChild(Object* child) {
     case ObjectType::OBJECT_WORLD:
     case ObjectType::ENEMY:
         children_world_.push_back(static_cast<ObjectWorld*>(child));
-        SDL_Log("Scene: add world child\n");
         break;
     case ObjectType::OBJECT_SCREEN:
         children_screen_.push_back(static_cast<ObjectScreen*>(child));
-        SDL_Log("Scene: add screen child\n");   
         break;
     default:
         Object::addChild(child);
-        SDL_Log("Scene: add child\n");
         break;
     }
 }
@@ -103,6 +110,18 @@ void Scene::removeChild(Object* child) {
         Object::removeChild(child);
         break;
     }
+}
+
+void Scene::pause() {
+    isPause_ = true;
+    game_.pauseSound();
+    game_.pauseMusic();
+}
+
+void Scene::resume() {
+    isPause_ = false;
+    game_.resumeSound();
+    game_.resumeMusic();
 }
 
 void Scene::setCameraPosition(const glm::vec2& position) {

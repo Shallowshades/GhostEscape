@@ -10,7 +10,7 @@ public:
 public:
     virtual void init() override;
     virtual void update(float delta) override;
-    virtual void handleEvents(SDL_Event& event) override;
+    virtual bool handleEvents(SDL_Event& event) override;
 protected:
     HUDSkill* hudSkill_ = nullptr;
 };

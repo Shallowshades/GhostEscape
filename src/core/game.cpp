@@ -19,7 +19,6 @@ void Game::run() {
         update(dt_);
         render();
         auto elapsed = SDL_GetTicksNS() - start;
-        // SDL_Log("Frame Time: %.10f ns\n", elapsed * 1.0);
         if (elapsed < frame_delay_) {
             SDL_DelayNS(frame_delay_ - elapsed);
             dt_ = static_cast<float>(frame_delay_ / PER_SEC);
@@ -27,8 +26,6 @@ void Game::run() {
         else {
             dt_ = static_cast<float>(elapsed / PER_SEC);
         }
-
-        // SDL_Log("FPS: %f, dt_ = %f", 1.f / dt_, dt_);
     }
 }
 

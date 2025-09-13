@@ -7,7 +7,7 @@
 class HUDButton : public ObjectScreen {
 public:
     static HUDButton* addHUDButtonChild(Object* parent, glm::vec2 renderPosition, const std::string& filePath1, const std::string& filePath2, const std::string& filePath3, float scale = 1.f, Anchor anchor = Anchor::CENTER);
-    virtual void handleEvents(SDL_Event& event) override;
+    virtual bool handleEvents(SDL_Event& event) override;
     virtual void update(float delta) override;
     void checkHover();
     void checkState();

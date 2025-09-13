@@ -9,7 +9,6 @@ void Spawner::update(float delta) {
     }
     timer_ += delta;
     if (timer_ > interval_) {
-        SDL_Log("Spawner: spawn %d enemies\n", num_);
         timer_ = 0;
         game_.playSound("assets/sound/silly-ghost-sound-242342.mp3");
         for (int i = 0; i < num_; ++i) {

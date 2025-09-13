@@ -22,7 +22,6 @@ void Actor::update(float delta) {
 
 void Actor::takeDamage(float amount) {
     if (stats_ != nullptr && stats_->isAlive() && stats_->isInvincible() == false) {
-        SDL_Log("Enemy attack player for %f damage", stats_->getDamage());
         stats_->takeDamage(amount);
     }
 }

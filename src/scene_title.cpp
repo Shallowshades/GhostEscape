@@ -7,6 +7,8 @@
 
 void SceneTitle::init() {
     Scene::init();
+    SDL_ShowCursor();
+    game_.playMusic("assets/bgm/Spooky music.mp3");
     auto size = glm::vec2(game_.getScreenSize().x / 2.f, game_.getScreenSize().y / 3.f);
     HUDText::addHUDTextChild(this, "幽 灵 逃 生", game_.getScreenSize() / 2.f - glm::vec2(0, 100), size, "assets/font/VonwaonBitmap-16px.ttf", 64);
     auto scoreText = "最高分: " + std::to_string(game_.getHighScore());
@@ -21,14 +23,17 @@ void SceneTitle::init() {
     creditsText_->setActive(false);
 }
 
-void SceneTitle::handleEvents(SDL_Event& event) {
+bool SceneTitle::handleEvents(SDL_Event& event) {
     if (creditsText_->isActive()) {
         if (event.type == SDL_EVENT_MOUSE_BUTTON_UP) {
             creditsText_->setActive(false);
+            return true;
         }
-        return;
     }
-    Scene::handleEvents(event);
+    if (Scene::handleEvents(event)) {
+        return true;
+    }
+    return false;
 }
 
 void SceneTitle::update(float delta) {

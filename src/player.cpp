@@ -18,8 +18,11 @@ void Player::init() {
     // TextLabel::addTextLabelChild(this, "这是主角", "assets/font/VonwaonBitmap-16px.ttf", 16);
 }
 
-void Player::handleEvents(SDL_Event& event) {
-    Actor::handleEvents(event);
+bool Player::handleEvents(SDL_Event& event) {
+    if (Actor::handleEvents(event)) {
+        return true;
+    }
+    return false;
 }
 
 void Player::update(float deltaTime) {
@@ -108,8 +111,6 @@ void Player::changeState(bool isMoving) {
 
 void Player::checkIsDead() {
     if (!stats_->isAlive()) {
-        SDL_Log("Player: is dead\n");
-        // effect_->setActive(false);
         effect_->setWorldPosition(getWorldPosition());
         game_.getCurrentScene()->safeAddChild(effect_);
         setActive(false);

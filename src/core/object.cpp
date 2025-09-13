@@ -1,17 +1,19 @@
 #include "object.h"
 
-void Object::handleEvents(SDL_Event& event) {
+bool Object::handleEvents(SDL_Event& event) {
     for (auto& child : children_) {
         if (child->isActive()) {
-            child->handleEvents(event);
+            if (child->handleEvents(event)) {
+                return true;
+            }
         }
     }
+    return false;
 }
 
 void Object::update(float deltaTime) {
     for (auto& child : objectToAdd_) {
         addChild(child);
-        SDL_Log("Object: add child \n");
     }
     objectToAdd_.clear();
     for (auto iter = children_.begin(); iter != children_.end(); ) {
@@ -19,7 +21,6 @@ void Object::update(float deltaTime) {
             (*iter)->clean();
             iter = children_.erase(iter);
             delete* iter;
-            SDL_Log("Object: remove child \n");
         }
         else {
             if ((*iter)->isActive()) {

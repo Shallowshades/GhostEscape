@@ -8,6 +8,7 @@
 #include "world/spell.h"
 #include "screen/hud_stats.h"
 #include "screen/hud_text.h"
+#include "screen/hud_button.h"
 
 class SceneMain : public Scene {
 public:
@@ -15,13 +16,16 @@ public:
     virtual ~SceneMain() = default;
 public:
     virtual void init() override;
-    virtual void handleEvents(SDL_Event& event) override;
+    virtual bool handleEvents(SDL_Event& event) override;
     virtual void update(float deltaTime) override;
     virtual void render() override;
     virtual void clean() override;
 private:
     void renderBackground();
     void updateScore();
+    void checkButtonPause();
+    void checkButtonRestart();
+    void checkButtonBack();
 private:
     // glm::vec2 world_size_ = glm::vec2(0);
     Player* player_ = nullptr;
@@ -29,6 +33,9 @@ private:
     UIMouse* uiMouse_ = nullptr;
     HUDStats* hudStats_ = nullptr;
     HUDText* hudTextScore_ = nullptr;
+    HUDButton* buttonPause_ = nullptr;
+    HUDButton* buttonRestart_ = nullptr;
+    HUDButton* buttonBack_ = nullptr;
 };
 
 #endif // SCENE_MAIN_H

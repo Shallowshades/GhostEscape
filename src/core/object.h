@@ -10,7 +10,7 @@ public:
     virtual ~Object() = default;
 public:
     virtual void init() {};
-    virtual void handleEvents(SDL_Event& event);
+    virtual bool handleEvents(SDL_Event& event);
     virtual void update(float deltaTime);
     virtual void render();
     virtual void clean();
