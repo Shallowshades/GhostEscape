@@ -16,7 +16,11 @@ void Player::init() {
     sprite_move_->setActive(false);
     collider_ = Collider::addColliderChild(this, sprite_idle_->getSize() / 2.f);
     stats_ = Stats::addStatsChild(this);
-    effect_ = Effect::addEffectChild(nullptr, "assets/effect/1764.png", glm::vec2(0.f), 2.f);
+
+    // 直接挂载到场景,但是不激活
+    effect_ = Effect::addEffectChild(Game::GetInstance().getCurrentScene(), "assets/effect/1764.png", glm::vec2(0.f), 2.f);
+    effect_->setActive(false);
+
     weaponThunder_ = WeaponThunder::addWeaponThunderChild(this, 2.f, 40.f);
     // TextLabel::addTextLabelChild(this, "这是主角", "assets/font/VonwaonBitmap-16px.ttf", 16);
 }
@@ -118,7 +122,7 @@ void Player::changeState(bool isMoving) {
 void Player::checkIsDead() {
     if (!stats_->isAlive()) {
         effect_->setWorldPosition(getWorldPosition());
-        game_.getCurrentScene()->safeAddChild(effect_);
+        effect_->setActive(true);
         setActive(false);
         game_.playSound("assets/sound/female-scream-02-89290.mp3");
     }

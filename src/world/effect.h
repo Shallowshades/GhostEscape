@@ -11,6 +11,7 @@ public:
         float scale = 1.f,
         ObjectWorld* objectWorld = nullptr);
     virtual void update(float deltaTime) override;
+    virtual void clean() override;
 
     void setSpriteAnimation(SpriteAnimation* animation) { sprite_ = animation; }
     SpriteAnimation* getSpriteAnimation() const { return sprite_; }

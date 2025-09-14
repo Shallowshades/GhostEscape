@@ -19,11 +19,21 @@ void Effect::update(float deltaTime) {
     checkFinished();
 }
 
+void Effect::clean() {
+    ObjectWorld::clean();
+    if (nextObject_) {
+        nextObject_->clean();
+        delete nextObject_;
+        nextObject_ = nullptr;
+    }
+}
+
 void Effect::checkFinished() {
     if (sprite_->isFinished()) {
         isNeedRemove_ = true;
         if (nextObject_) {
             game_.getCurrentScene()->safeAddChild(nextObject_);
+            nextObject_ = nullptr;                                  // 交给场景管理
         }
     }
 }
