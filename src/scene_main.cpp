@@ -125,6 +125,7 @@ void SceneMain::checkEndTimer() {
         return;
     }
     pause();
+    game_.resumeMusic();
     buttonRestart_->setRenderPosition(game_.getScreenSize() / 2.f - glm::vec2(200.f, 0.f));
     buttonRestart_->setScale(4.f);
     buttonBack_->setRenderPosition(game_.getScreenSize() / 2.f + glm::vec2(200.f, 0.f));

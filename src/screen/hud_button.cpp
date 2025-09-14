@@ -75,6 +75,8 @@ void HUDButton::checkState() {
 bool HUDButton::getIsTrigger() {
     if (isTrigger_) {
         isTrigger_ = false;
+        isPress_ = false;
+        isHover_ = false;
         return true;
     }
     return false;

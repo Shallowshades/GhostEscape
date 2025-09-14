@@ -4,6 +4,7 @@
 #include "core/scene.h"
 #include "screen/hud_button.h"
 #include "screen/hud_text.h"
+#include "screen/ui_mouse.h"
 
 class SceneTitle : public Scene {
 public:
@@ -26,6 +27,7 @@ protected:
     HUDButton* buttonCredits_ = nullptr;
     HUDButton* buttonQuit_ = nullptr;
     HUDText* creditsText_ = nullptr;
+    UIMouse* uiMouse_ = nullptr;
 };
 
 #endif // SCENE_TITLE_H
