@@ -5,6 +5,7 @@
 #include "player.h"
 #include "enemy.h"
 #include "world/effect.h"
+#include "raw/bg_star.h"
 
 void SceneMain::init() {
     Scene::init();
@@ -16,6 +17,8 @@ void SceneMain::init() {
     player_->init();
     player_->setWorldPosition(world_size_ / 2.f);
     addChild(player_);
+
+    BgStar::addBgStarChild(this, 2000, 0.2f, 0.5f, 0.7f);
 
     endTimer_ = Timer::addTimerChild(this);
 

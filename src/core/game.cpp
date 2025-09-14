@@ -229,6 +229,16 @@ void Game::drawBoundary(const glm::vec2& top_left, const glm::vec2& bottom_right
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1); // Reset color to black
 }
 
+void Game::drawPoints(const std::vector<glm::vec2>& points, glm::vec2 renderPosition, SDL_FColor fColor) {
+    SDL_SetRenderDrawColorFloat(renderer_, fColor.a, fColor.g, fColor.b, fColor.a);
+    for (const auto& point : points) {
+        auto x = point.x - renderPosition.x;
+        auto y = point.y - renderPosition.y;
+        SDL_RenderPoint(renderer_, x, y);
+    }
+    SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
+}
+
 TTF_Text* Game::createTTFText(const std::string& text, const std::string& fontPath, int fontSize) {
     auto font = asset_store_->getFont(fontPath, fontSize);
     return TTF_CreateText(ttfEngine_, font, text.c_str(), 0);

@@ -64,6 +64,7 @@ public:
     void renderFillCircle(const glm::vec2& position, const glm::vec2& size, float alpha);
     void drawGrid(const glm::vec2& top_left, const glm::vec2& bottom_right, float grid_width, SDL_FColor fcolor);
     void drawBoundary(const glm::vec2& top_left, const glm::vec2& bottom_right, float boundary_width, SDL_FColor fcolor);
+    void drawPoints(const std::vector<glm::vec2>& points, glm::vec2 renderPosition, SDL_FColor fColor);
     TTF_Text* createTTFText(const std::string& text, const std::string& fontPath, int fontSize = 16);
     bool isMouseInRect(const glm::vec2& topLeft, const glm::vec2& bottomRight);
     std::string loadTextFile(const std::string& filePath);
