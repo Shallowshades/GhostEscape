@@ -1,0 +1,919 @@
+@startuml
+@startuml class_diagram.puml
+skinparam dpi 150
+title Class Diagram - ghost escape
+class "std::char_traits<char>" as C_0007500688229146332176
+class C_0007500688229146332176 {
+__
+}
+class "std::allocator<char>" as C_0000465838628272370621
+class C_0000465838628272370621 {
+__
+}
+class "std::string" as C_0005016775666417918015
+class C_0005016775666417918015 {
+__
+}
+class "std::unordered_map<std::string,SDL_Texture *>" as C_0000011968990864334302
+class C_0000011968990864334302 {
+__
+}
+class "std::unordered_map<std::string,Mix_Chunk *>" as C_0013307056359240084357
+class C_0013307056359240084357 {
+__
+}
+class "std::unordered_map<std::string,Mix_Music *>" as C_0013904579895003486923
+class C_0013904579895003486923 {
+__
+}
+class "std::unordered_map<std::string,TTF_Font *>" as C_0002411295535020352241
+class C_0002411295535020352241 {
+__
+}
+class "std::vector<glm::vec<2,float,defaultp>>" as C_0016478867706980410130
+class C_0016478867706980410130 {
+__
+}
+class "std::mersenne_twister_engine<unsigned int,32,624,397,31,0x9908b0df,11,0xffffffff,7,0x9d2c5680,15,0xefc60000,18,1812433253>" as C_0003048801440335063312
+class C_0003048801440335063312 {
+__
+}
+class "std::vector<Object *>" as C_0016645037678902051208
+class C_0016645037678902051208 {
+__
+}
+class "std::vector<ObjectWorld *>" as C_0015751266116942030172
+class C_0015751266116942030172 {
+__
+}
+class "std::vector<ObjectScreen *>" as C_0004008560204300580412
+class C_0004008560204300580412 {
+__
+}
+class "glm::vec<2,float,defaultp>" as C_0007604850517176651306
+class C_0007604850517176651306 {
+__
+}
+class "glm::vec<2,int,defaultp>" as C_0008929204938186879833
+class C_0008929204938186879833 {
+__
+}
+class "AssetStore" as C_0010946736915252653556
+class C_0010946736915252653556 {
++AssetStore(SDL_Renderer * renderer) : void
++~AssetStore() = default : void
+..
++clean() : void
++getFont(const std::string & filePath, int fontSize) : TTF_Font *
++getMusic(const std::string & filePath) : Mix_Music *
++getSound(const std::string & filePath) : Mix_Chunk *
++getTexture(const std::string & filePath) : SDL_Texture *
++loadFont(const std::string & filePath, int fontSize) : void
++loadMusic(const std::string & filePath) : void
++loadSound(const std::string & filePath) : void
++loadTexture(const std::string & filePath) : void
+__
+-fonts_ : std::unordered_map<std::string,TTF_Font *>
+-musics_ : std::unordered_map<std::string,Mix_Music *>
+-renderer_ : SDL_Renderer *
+-sounds_ : std::unordered_map<std::string,Mix_Chunk *>
+-textures_ : std::unordered_map<std::string,SDL_Texture *>
+}
+class "Game" as C_0013071880978633431303
+class C_0013071880978633431303 {
+-Game() = default : void
+-Game(const Game &) = deleted : void
+..
+-operator=(const Game &) = deleted : Game
+..
+{static} +GetInstance() : Game &
++addScore(int score) : void
++changeScene(Scene * scene) : void
++clean() : void
++createTTFText(const std::string & text, const std::string & fontPath, int fontSize = 16) : TTF_Text *
++drawBoundary(const glm::vec2 & top_left, const glm::vec2 & bottom_right, float boundary_width, SDL_FColor fcolor) : void
++drawGrid(const glm::vec2 & top_left, const glm::vec2 & bottom_right, float grid_width, SDL_FColor fcolor) : void
++drawPoints(const std::vector<glm::vec2> & points, glm::vec2 renderPosition, SDL_FColor fColor) : void
++getAssetStore() const : AssetStore *
++getCurrentScene() const : Scene *
++getHighScore() const : int
++getMouseButtons() const : SDL_MouseButtonFlags
++getMousePosition() const : glm::vec2
++getScore() const : int
++getScreenSize() const : glm::vec2
++handleEvents() : void
++init(std::string title, int width, int height) : void
++isMouseInRect(const glm::vec2 & topLeft, const glm::vec2 & bottomRight) : bool
++loadTextFile(const std::string & filePath) : std::string
++pauseMusic() : void
++pauseSound() : void
++playMusic(const std::string & musicPath, bool loop = true) : void
++playSound(const std::string & soundPath) : void
++quit() : void
++randomFloat(float min, float max) : float
++randomIVec2(const glm::ivec2 & min, const glm::ivec2 & max) : glm::ivec2
++randomInt(int min, int max) : int
++randomVec2(const glm::vec2 & min, const glm::vec2 & max) : glm::vec2
++render() : void
++renderFillCircle(const glm::vec2 & position, const glm::vec2 & size, float alpha) : void
++renderHealthBar(const glm::vec2 & position, const glm::vec2 & size, float percent, SDL_FColor color) : void
++renderTexture(const Texture & texture, const glm::vec2 & position, const glm::vec2 & size, const glm::vec2 & mask = glm::vec2(1.f)) : void
++resumeMusic() : void
++resumeSound() : void
++run() : void
++safeChangeScene(Scene * scene) : void
++setHighScore(int highScore) : void
++setScore(int score) : void
++stopMusic() : void
++stopSound() : void
++update(float dt) : void
+-updateMouse() : void
+__
+-FPS_ : Uint64
+-asset_store_ : AssetStore *
+-current_scene_ : Scene *
+-dt_ : float
+-frame_delay_ : Uint64
+-gen_ : std::mt19937
+-highScore_ : int
+-is_running_ : bool
+-mouseButtons_ : SDL_MouseButtonFlags
+-mousePosition_ : glm::vec2
+-nextScene_ : Scene *
+-renderer_ : SDL_Renderer *
+-score_ : int
+-screen_size : glm::vec2
+-ttfEngine_ : TTF_TextEngine *
+-window_ : SDL_Window *
+}
+enum "ObjectType" as C_0001183627799922185786
+enum C_0001183627799922185786 {
+NONE
+OBJECT_SCREEN
+OBJECT_WORLD
+ENEMY
+}
+enum "Anchor" as C_0013762889136459662452
+enum C_0013762889136459662452 {
+NONE
+TOP_LEFT
+TOP_CENTER
+TOP_RIGHT
+CENTER_LEFT
+CENTER
+CENTER_RIGHT
+BOTTOM_LEFT
+BOTTOM_CENTER
+BOTTOM_RIGHT
+}
+class "Object" as C_0008287048469554089178
+class C_0008287048469554089178 {
++Object() = default : void
++~Object() = default : void
+..
++addChild(Object * child) : void
++clean() : void
++getType() const : ObjectType
++handleEvents(SDL_Event & event) : bool
++init() : void
++isActive() const : bool
++isNeedRemove() const : bool
++removeChild(Object * child) : void
++render() : void
++safeAddChild(Object * child) : void
++setActive(bool active) : void
++setIsNeedRemove(bool needRemove) : void
++setType(ObjectType type) : void
++update(float deltaTime) : void
+__
+#children_ : std::vector<Object *>
+#game_ : Game &
+#isNeedRemove_ : bool
+#is_active_ : bool
+#objectToAdd_ : std::vector<Object *>
+#type_ : ObjectType
+}
+class "ObjectScreen" as C_0005636473661436470598
+class C_0005636473661436470598 {
++getRenderPosition() const : glm::vec2
++getWorldPosition() const : glm::vec2
++init() : void
++setRenderPosition(const glm::vec2 & position) : void
+__
+#render_position_ : glm::vec2
+}
+class "ObjectAffiliate" as C_0008545194784379918837
+class C_0008545194784379918837 {
++ObjectAffiliate() = default : void
++~ObjectAffiliate() = default : void
+..
++getAnchor() const : Anchor
++getOffset() const : glm::vec2
++getParent() const : ObjectScreen *
++getSize() const : glm::vec2
++setAnchor(Anchor anchor) : void
++setOffset(const glm::vec2 & offset) : void
++setOffsetByAnchor(Anchor anchor) : void
++setParent(ObjectScreen * parent) : void
++setScale(float scale) : void
++setSize(const glm::vec2 & size) : void
+__
+#anchor_ : Anchor
+#offset_ : glm::vec2
+#parent_ : ObjectScreen *
+#size_ : glm::vec2
+}
+class "Collider" as C_0014710440344490690589
+class C_0014710440344490690589 {
+{static} +addColliderChild(ObjectScreen * parent, const glm::vec2 & size, Type type = Type::CIRCLE, Anchor anchor = Anchor::CENTER) : Collider *
++getType() const : Type
++isColliding(Collider * other) : bool
++render() : void
++setType(Type type) : void
+__
+#type_ : Type
+}
+enum "Collider::Type" as C_0001399864998835700515
+enum C_0001399864998835700515 {
+CIRCLE
+RECTANGLE
+}
+class "ObjectWorld" as C_0004190885704642774566
+class C_0004190885704642774566 {
++getCollider() const : Collider *
++getWorldPosition() const : glm::vec2
++init() : void
++setCollider(Collider * collider) : void
++setRenderPosition(const glm::vec2 & position) : void
++setWorldPosition(const glm::vec2 & position) : void
++takeDamage(float damage) : void
++update(float deltaTime) : void
+__
+#collider_ : Collider *
+#world_position_ : glm::vec2
+}
+class "Actor" as C_0017898892907908295482
+class C_0017898892907908295482 {
++getHealthBar() : AffiliateBar *
++getMaxSpeed() const : float
++getStats() const : Stats *
++getVelocity() const : glm::vec2
++isAlive() const : bool
++move(float deltaTime) : void
++setHealthBar(AffiliateBar * healthBar) : void
++setMaxSpeed(float max_speed) : void
++setStats(Stats * stats) : void
++setVelocity(const glm::vec2 & velocity) : void
++takeDamage(float amount) : void
++update(float delta) : void
+-updateHealthBar() : void
+__
+#healthBar_ : AffiliateBar *
+#max_speed_ : float
+#stats_ : Stats *
+#velocity_ : glm::vec2
+}
+class "Texture" as C_0002829778445906215252
+class C_0002829778445906215252 {
++Texture() = default : void
++Texture(const std::string & file_path) : void
+__
++angle : float
++is_flipped : bool
++src_rect : SDL_FRect
++texture : SDL_Texture *
+}
+class "Sprite" as C_0017555429528309779676
+class C_0017555429528309779676 {
+{static} +addSpriteChild(ObjectScreen * parent, const std::string & file_path, float scale = 1.f, Anchor anchor = Anchor::CENTER) : Sprite *
++getAngle() const : float
++getFlip() const : bool
++getPercentage() const : glm::vec2
++getTexture() : Texture
++isFinished() const : bool
++render() : void
++setAngle(float angle) : void
++setFinished(bool finished) : void
++setFlip(bool flip) : void
++setPercentage(const glm::vec2 & percentage) : void
++setTexture(const Texture & texture) : void
+__
+#isFinished_ : bool
+#percentage_ : glm::vec2
+#texture_ : Texture
+}
+class "SpriteAnimation" as C_0014035470528916335706
+class C_0014035470528916335706 {
+{static} +addSpriteAnimationChild(ObjectScreen * parent, const std::string & file_path, float scale = 1.f, Anchor anchor = Anchor::CENTER) : SpriteAnimation *
++getCurrentFrame() const : int
++getFPS() const : int
++getFrameTimer() const : float
++getTotalFrames() const : int
++isLoop() const : bool
++setCurrentFrame(int frame) : void
++setFPS(int fps) : void
++setFrameTimer(float timer) : void
++setLoop(bool loop) : void
++setTexture(const Texture & texture) : void
++setTotalFrames(int frames) : void
++update(float delta_time) : void
+__
+-current_frame_ : int
+-fps_ : int
+-frame_timer : float
+-isLoop_ : bool
+-total_frames_ : int
+}
+class "Timer" as C_0016540721780518084962
+class C_0016540721780518084962 {
+{static} +addTimerChild(Object * parent, float interval = 3.f) : Timer *
++getInterval() const : float
++getProgress() : float
++getTimer() const : float
++setInterval(float interval) : void
++setTimer(float timer) : void
++start() : void
++stop() : void
++timeOut() : bool
++update(float delta) : void
+__
+#interval_ : float
+#timeOut_ : bool
+#timer_ : float
+}
+class "Effect" as C_0008619206838720611444
+class C_0008619206838720611444 {
+{static} +addEffectChild(Object * parent, const std::string & file_path, const glm::vec2 & position = glm::vec2(0, 0), float scale = 1.f, ObjectWorld * objectWorld = nullptr) : Effect *
+-checkFinished() : void
++clean() : void
++getNextObject() const : ObjectWorld *
++getSpriteAnimation() const : SpriteAnimation *
++setNextObject(ObjectWorld * nextObject) : void
++setSpriteAnimation(SpriteAnimation * animation) : void
++update(float deltaTime) : void
+__
+-nextObject_ : ObjectWorld *
+-sprite_ : SpriteAnimation *
+}
+class "Weapon" as C_0009880302970961535201
+class C_0009880302970961535201 {
++attack(glm::vec2 position, Spell * spell) : void
++canAttack() : bool
++getCoolDown() const : float
++getManaCost() const : float
++getParent() const : Actor *
++setCoolDown(float coolDown) : void
++setManaCost(float manaCost) : void
++setParent(Actor * parent) : void
++update(float delta) : void
+__
+#coolDawnTimer_ : float
+#coolDown_ : float
+#manaCost_ : float
+#parent_ : Actor *
+}
+class "HUDSkill" as C_0001952515632306279839
+class C_0001952515632306279839 {
+{static} +addHUDSkillChild(Object * parent, const std::string & filePath, glm::vec2 & position, float scale = 1.0f, Anchor anchor = Anchor::CENTER) : HUDSkill *
++getIcon() const : Sprite *
++getPercentage() const : float
++render() : void
++setIcon(Sprite * sprite) : void
++setPercentage(float percentage) : void
+__
+#icon_ : Sprite *
+#percentage_ : float
+}
+class "WeaponThunder" as C_0005704922220853903181
+class C_0005704922220853903181 {
+{static} +addWeaponThunderChild(Actor * parent, float coolDown, float manaCost) : WeaponThunder *
++handleEvents(SDL_Event & event) : bool
++init() : void
++update(float delta) : void
+__
+#hudSkill_ : HUDSkill *
+}
+class "Player" as C_0003692324345213718176
+class C_0003692324345213718176 {
++changeState(bool moving) : void
++checkIsDead() : void
++checkState() : void
++clean() : void
++handleEvents(SDL_Event & event) : bool
++init() : void
++keyboardControl() : void
++render() : void
++syncCamera() : void
++takeDamage(float damage) : void
++update(float deltaTime) : void
+__
+-effect_ : Effect *
+-flashTimer_ : Timer *
+-is_moving_ : bool
+-sprite_idle_ : SpriteAnimation *
+-sprite_move_ : SpriteAnimation *
+-weaponThunder_ : WeaponThunder *
+}
+class "Enemy" as C_0018162179630194765227
+class C_0018162179630194765227 {
+{static} +addEnemyChild(Object * parent, const glm::vec2 & position, Player * target) : Enemy *
++animationTarget(Player * target) : void
++attack() : void
++changeState(State state) : void
++checkState() : void
++getTarget() const : Player *
++init() : void
++remove() : void
++setTarget(Player * target) : void
++update(float deltaTime) : void
+__
+-currentAnimation_ : SpriteAnimation *
+-currentState_ : State
+-deadAnimation_ : SpriteAnimation *
+-hurtAnimation_ : SpriteAnimation *
+-normalAnimation_ : SpriteAnimation *
+-score_ : int
+-target_ : Player *
+-timer_ : float
+}
+enum "Enemy::State" as C_0000788470208375163986
+enum C_0000788470208375163986 {
+NORMAL
+HURT
+DEAD
+}
+class "Scene" as C_0005375663403181666835
+class C_0005375663403181666835 {
++Scene() = default : void
++~Scene() = default : void
+..
++addChild(Object * child) : void
++clean() : void
++getCameraPosition() const : glm::vec2
++getScreenChildren() const : std::vector<ObjectScreen *>
++getWorldChildren() const : std::vector<ObjectWorld *>
++getWorldSize() const : glm::vec2
++handleEvents(SDL_Event & event) : bool
++init() : void
++loadData(const std::string & filePath) : void
++pause() : void
++removeChild(Object * child) : void
++render() : void
++resume() : void
++saveData(const std::string & filePath) : void
++screenToWorldPosition(const glm::vec2 & screenPosition) const : glm::vec2
++setCameraPosition(const glm::vec2 & position) : void
++setWorldSize(const glm::vec2 & size) : void
++update(float deltaTime) : void
++worldToScreenPosition(const glm::vec2 & worldPosition) const : glm::vec2
+__
+#camera_position_ : glm::vec2
+#children_screen_ : std::vector<ObjectScreen *>
+#children_world_ : std::vector<ObjectWorld *>
+#isPause_ : bool
+#world_size_ : glm::vec2
+}
+class "Stats" as C_0012548018207006845868
+class C_0012548018207006845868 {
+{static} +addStatsChild(Actor * parent, float maxHealth = 100.0f, float maxMana = 100.0f, float damage = 40.0f, float manaRegen = 10.0f) : Stats *
++canUseMana(float amount) const : bool
++getDamage() const : float
++getHealth() const : float
++getMana() const : float
++getManaRegen() const : float
++getMaxHealth() const : float
++getMaxMana() const : float
++getParent() const : Actor *
++isAlive() const : bool
++isInvincible() const : bool
++regenMana(float deltaTime) : void
++setAlive(bool isAlive) : void
++setDamage(float damage) : void
++setHealth(float health) : void
++setInvincible(bool isInvincible) : void
++setMana(float mana) : void
++setManaRegen(float manaRegen) : void
++setMaxHealth(float maxHealth) : void
++setMaxMana(float maxMana) : void
++setParent(Actor * parent) : void
++takeDamage(float amount) : void
++update(float deltaTime) : void
++useMana(float amount) : void
+__
+#damage_ : float
+#health_ : float
+#invincibilityTime_ : float
+#invincibilityTimer_ : float
+#isAlive_ : bool
+#isInvincible_ : bool
+#manaRegen_ : float
+#mana_ : float
+#maxHealth_ : float
+#maxMana_ : float
+#parent_ : Actor *
+}
+class "AffiliateBar" as C_0003716471616022150545
+class C_0003716471616022150545 {
+{static} +addAffiliateBarChild(ObjectScreen * parent, glm::vec2 size, Anchor anchor = Anchor::CENTER) : AffiliateBar *
++getColorHigh() const : SDL_FColor
++getColorLow() const : SDL_FColor
++getColorMiddle() const : SDL_FColor
++getPercentage() const : float
++render() : void
++setColorHigh(SDL_FColor color) : void
++setColorLow(SDL_FColor color) : void
++setColorMiddle(SDL_FColor color) : void
++setPercentage(float percentage) : void
+__
+#colorHigh_ : SDL_FColor
+#colorLow_ : SDL_FColor
+#colorMiddle_ : SDL_FColor
+#percentage_ : float
+}
+class "Spell" as C_0016296661116101139689
+class C_0016296661116101139689 {
+{static} +addSpellChild(Object * parent, const std::string & filePath, glm::vec2 position, float damage, float scale = 1.f, Anchor anchor = Anchor::CENTER) : Spell *
+-attack() const : void
++getDamage() const : float
++getSpriteAnimation() const : SpriteAnimation *
++setDamage(float damage) : void
++setSpriteAnimation(SpriteAnimation * animation) : void
++update(float deltaTime) : void
+__
+#damage_ : float
+#spriteAnimation_ : SpriteAnimation *
+}
+class "TextLabel" as C_0000087236457220292404
+class C_0000087236457220292404 {
+{static} +addTextLabelChild(ObjectScreen * parent, const std::string & text, const std::string & fontPath, int fontSize, Anchor anchor = Anchor::CENTER) : TextLabel *
++clean() : void
++getText() const : std::string
++render() : void
++setFont(const std::string & fontPath, int fontSize) : void
++setFontPath(const std::string & fontPath) : void
++setFontSize(int fontSize) : void
++setText(const std::string & text) : void
+-updateSize() : void
+__
+#fontPath_ : std::string
+#fontSize_ : int
+#ttfText_ : TTF_Text *
+}
+class "Spawner" as C_0002808359341548456591
+class C_0002808359341548456591 {
++getInterval() const : float
++getNum() const : int
++getTarget() const : Player *
++getTimer() const : float
++setInterval(float interval) : void
++setNum(int num) : void
++setTarget(Player * target) : void
++setTimer(float timer) : void
++update(float delta) : void
+__
+#interval_ : float
+#num_ : int
+#target_ : Player *
+#timer_ : float
+}
+class "UIMouse" as C_0007001421234292613054
+class C_0007001421234292613054 {
+{static} +addUIMouseChild(Object * parent, const std::string & filePath1, const std::string & filePath2, float scale = 1.f, Anchor anchor = Anchor::CENTER) : UIMouse *
++getSprite1() const : Sprite *
++getSprite2() const : Sprite *
++setSprite1(Sprite * sprite) : void
++setSprite2(Sprite * sprite) : void
++update(float delta) : void
+__
+#sprite1_ : Sprite *
+#sprite2_ : Sprite *
+#timer_ : float
+}
+class "HUDStats" as C_0009435402263069789949
+class C_0009435402263069789949 {
+{static} +addHUDStatsChild(Object * parent, Actor * target, glm::vec2 renderPosition) : HUDStats *
++getHealthBar() const : Sprite *
++getHealthBarBg() const : Sprite *
++getHealthIcon() const : Sprite *
++getHealthPercentage() const : float
++getManaBar() const : Sprite *
++getManaBarBg() const : Sprite *
++getManaIcon() const : Sprite *
++getManaPercentage() const : float
++getTarget() const : Actor *
++init() : void
++setHealthPercentage(float healthPercentage) : void
++setManaPercentage(float manaPercentage) : void
++setTarget(Actor * target) : void
++update(float delta) : void
+-updateHealthBar() : void
+-updateManaBar() : void
+__
+#healthBarBg_ : Sprite *
+#healthBar_ : Sprite *
+#healthIcon_ : Sprite *
+#healthPercentage_ : float
+#manaBarBg_ : Sprite *
+#manaBar_ : Sprite *
+#manaIcon_ : Sprite *
+#manaPercentage_ : float
+#target_ : Actor *
+}
+class "HUDText" as C_0008646296628421776693
+class C_0008646296628421776693 {
+{static} +addHUDTextChild(Object * parent, const std::string & text, glm::vec2 renderPosition, glm::vec2 size, const std::string & fontPath = "assets/font/VonwaonBitmap-16px.ttf", int fontSize = 32, const std::string & bgPath = "assets/UI/Textfield_01.png", Anchor anchor = Anchor::CENTER) : HUDText *
++getSpriteBg() const : Sprite *
++getText() const : std::string
++getTextLabel() const : TextLabel *
++setBackground(const std::string & filePath) : void
++setBgSizeByText(float margin = 50.f) : void
++setSize(const glm::vec2 & size) : void
++setSpriteBg(Sprite * sprite) : void
++setText(const std::string & text) : void
++setTextLabel(TextLabel * textLabel) : void
+__
+#size_ : glm::vec2
+#spriteBg_ : Sprite *
+#textLabel_ : TextLabel *
+}
+class "HUDButton" as C_0012972831500856678694
+class C_0012972831500856678694 {
+{static} +addHUDButtonChild(Object * parent, glm::vec2 renderPosition, const std::string & filePath1, const std::string & filePath2, const std::string & filePath3, float scale = 1.f, Anchor anchor = Anchor::CENTER) : HUDButton *
++checkHover() : void
++checkState() : void
++getIsHover() const : bool
++getIsPress() const : bool
++getIsTrigger() : bool
++getSpriteHover() const : Sprite *
++getSpriteNormal() const : Sprite *
++getSpritePress() const : Sprite *
++handleEvents(SDL_Event & event) : bool
++setIsHover(bool isHover) : void
++setIsPress(bool isPress) : void
++setIsTrigger(bool isTrigger) : void
++setScale(float scale) : void
++update(float delta) : void
+__
+#isHover_ : bool
+#isPress_ : bool
+#isTrigger_ : bool
+#spriteHover_ : Sprite *
+#spriteNormal_ : Sprite *
+#spritePress_ : Sprite *
+}
+class "SceneMain" as C_0018111613789678437570
+class C_0018111613789678437570 {
++SceneMain() = default : void
++~SceneMain() = default : void
+..
+-checkButtonBack() : void
+-checkButtonPause() : void
+-checkButtonRestart() : void
+-checkEndTimer() : void
+-checkSlowDown(float & delta) : void
++clean() : void
++handleEvents(SDL_Event & event) : bool
++init() : void
++render() : void
+-renderBackground() : void
++saveData(const std::string & filePath) : void
++update(float deltaTime) : void
+-updateScore() : void
+__
+-buttonBack_ : HUDButton *
+-buttonPause_ : HUDButton *
+-buttonRestart_ : HUDButton *
+-endTimer_ : Timer *
+-hudStats_ : HUDStats *
+-hudTextScore_ : HUDText *
+-player_ : Player *
+-spawner_ : Spawner *
+-uiMouse_ : UIMouse *
+}
+class "SceneTitle" as C_0013345201068409400195
+class C_0013345201068409400195 {
+-checkButtonCredits() : void
+-checkButtonQuit() : void
+-checkButtonStart() : void
++clean() : void
++handleEvents(SDL_Event & event) : bool
++init() : void
++loadData(const std::string & filePath) : void
++render() : void
+-renderBackground() : void
++update(float delta) : void
+-updateColor() : void
+__
+#boundaryColor_ : SDL_FColor
+#buttonCredits_ : HUDButton *
+#buttonQuit_ : HUDButton *
+#buttonStart_ : HUDButton *
+#colorTimer_ : float
+#creditsText_ : HUDText *
+#uiMouse_ : UIMouse *
+}
+class "BgStar" as C_0015539915825680646582
+class C_0015539915825680646582 {
+{static} +addBgStarChild(Object * parent, int num, float scaleFar, float scaleMid, float scaleNear) : BgStar *
++getScaleFar() const : float
++getScaleMid() const : float
++getScaleNear() const : float
++render() : void
++setScaleFar(float scale) : void
++setScaleMid(float scale) : void
++setScaleNear(float scale) : void
++update(float delta) : void
+__
+#colorFar_ : SDL_FColor
+#colorMid_ : SDL_FColor
+#colorNear_ : SDL_FColor
+#num_ : int
+#scaleFar_ : float
+#scaleMid_ : float
+#scaleNear_ : float
+#starFar_ : std::vector<glm::vec2>
+#starMid_ : std::vector<glm::vec2>
+#starNear_ : std::vector<glm::vec2>
+#timer_ : float
+}
+C_0005016775666417918015 ..> C_0007500688229146332176
+C_0005016775666417918015 ..> C_0000465838628272370621
+C_0000011968990864334302 ..> C_0005016775666417918015
+C_0013307056359240084357 ..> C_0005016775666417918015
+C_0013904579895003486923 ..> C_0005016775666417918015
+C_0002411295535020352241 ..> C_0005016775666417918015
+C_0016478867706980410130 ..> C_0007604850517176651306
+C_0016645037678902051208 ..> C_0008287048469554089178
+C_0015751266116942030172 ..> C_0004190885704642774566
+C_0004008560204300580412 ..> C_0005636473661436470598
+C_0010946736915252653556 ..> C_0005016775666417918015
+C_0010946736915252653556 o-- C_0000011968990864334302 : -textures_
+C_0010946736915252653556 o-- C_0013307056359240084357 : -sounds_
+C_0010946736915252653556 o-- C_0013904579895003486923 : -musics_
+C_0010946736915252653556 o-- C_0002411295535020352241 : -fonts_
+C_0013071880978633431303 ..> C_0005016775666417918015
+C_0013071880978633431303 ..> C_0008929204938186879833
+C_0013071880978633431303 ..> C_0002829778445906215252
+C_0013071880978633431303 ..> C_0016478867706980410130
+C_0013071880978633431303 o-- C_0007604850517176651306 : -screen_size
+C_0013071880978633431303 --> C_0005375663403181666835 : -current_scene_
+C_0013071880978633431303 --> C_0005375663403181666835 : -nextScene_
+C_0013071880978633431303 o-- C_0007604850517176651306 : -mousePosition_
+C_0013071880978633431303 o-- C_0003048801440335063312 : -gen_
+C_0013071880978633431303 --> C_0010946736915252653556 : -asset_store_
+C_0008287048469554089178 --> C_0013071880978633431303 : #game_
+C_0008287048469554089178 o-- C_0001183627799922185786 : #type_
+C_0008287048469554089178 o-- C_0016645037678902051208 : #children_
+C_0008287048469554089178 o-- C_0016645037678902051208 : #objectToAdd_
+C_0005636473661436470598 o-- C_0007604850517176651306 : #render_position_
+C_0008287048469554089178 <|-- C_0005636473661436470598
+C_0008545194784379918837 --> C_0005636473661436470598 : #parent_
+C_0008545194784379918837 o-- C_0007604850517176651306 : #offset_
+C_0008545194784379918837 o-- C_0007604850517176651306 : #size_
+C_0008545194784379918837 o-- C_0013762889136459662452 : #anchor_
+C_0008287048469554089178 <|-- C_0008545194784379918837
+C_0014710440344490690589 ..> C_0005636473661436470598
+C_0014710440344490690589 ..> C_0007604850517176651306
+C_0014710440344490690589 ..> C_0013762889136459662452
+C_0014710440344490690589 o-- C_0001399864998835700515 : #type_
+C_0014710440344490690589 <.. C_0016296661116101139689 : +<<friend>>
+C_0008545194784379918837 <|-- C_0014710440344490690589
+C_0001399864998835700515 --+ C_0014710440344490690589
+C_0004190885704642774566 o-- C_0007604850517176651306 : #world_position_
+C_0004190885704642774566 --> C_0014710440344490690589 : #collider_
+C_0005636473661436470598 <|-- C_0004190885704642774566
+C_0017898892907908295482 o-- C_0007604850517176651306 : #velocity_
+C_0017898892907908295482 --> C_0012548018207006845868 : #stats_
+C_0017898892907908295482 --> C_0003716471616022150545 : #healthBar_
+C_0004190885704642774566 <|-- C_0017898892907908295482
+C_0002829778445906215252 ..> C_0005016775666417918015
+C_0017555429528309779676 ..> C_0005636473661436470598
+C_0017555429528309779676 ..> C_0005016775666417918015
+C_0017555429528309779676 ..> C_0013762889136459662452
+C_0017555429528309779676 o-- C_0002829778445906215252 : #texture_
+C_0017555429528309779676 o-- C_0007604850517176651306 : #percentage_
+C_0008545194784379918837 <|-- C_0017555429528309779676
+C_0014035470528916335706 ..> C_0005636473661436470598
+C_0014035470528916335706 ..> C_0005016775666417918015
+C_0014035470528916335706 ..> C_0013762889136459662452
+C_0014035470528916335706 ..> C_0002829778445906215252
+C_0017555429528309779676 <|-- C_0014035470528916335706
+C_0008287048469554089178 <|-- C_0016540721780518084962
+C_0008619206838720611444 ..> C_0008287048469554089178
+C_0008619206838720611444 ..> C_0005016775666417918015
+C_0008619206838720611444 ..> C_0007604850517176651306
+C_0008619206838720611444 --> C_0014035470528916335706 : -sprite_
+C_0008619206838720611444 --> C_0004190885704642774566 : -nextObject_
+C_0004190885704642774566 <|-- C_0008619206838720611444
+C_0009880302970961535201 ..> C_0007604850517176651306
+C_0009880302970961535201 ..> C_0016296661116101139689
+C_0009880302970961535201 --> C_0017898892907908295482 : #parent_
+C_0008287048469554089178 <|-- C_0009880302970961535201
+C_0001952515632306279839 ..> C_0008287048469554089178
+C_0001952515632306279839 ..> C_0005016775666417918015
+C_0001952515632306279839 ..> C_0007604850517176651306
+C_0001952515632306279839 ..> C_0013762889136459662452
+C_0001952515632306279839 --> C_0017555429528309779676 : #icon_
+C_0005636473661436470598 <|-- C_0001952515632306279839
+C_0005704922220853903181 ..> C_0017898892907908295482
+C_0005704922220853903181 --> C_0001952515632306279839 : #hudSkill_
+C_0009880302970961535201 <|-- C_0005704922220853903181
+C_0003692324345213718176 --> C_0014035470528916335706 : -sprite_idle_
+C_0003692324345213718176 --> C_0014035470528916335706 : -sprite_move_
+C_0003692324345213718176 --> C_0008619206838720611444 : -effect_
+C_0003692324345213718176 --> C_0005704922220853903181 : -weaponThunder_
+C_0003692324345213718176 --> C_0016540721780518084962 : -flashTimer_
+C_0017898892907908295482 <|-- C_0003692324345213718176
+C_0018162179630194765227 ..> C_0008287048469554089178
+C_0018162179630194765227 ..> C_0007604850517176651306
+C_0018162179630194765227 --> C_0003692324345213718176 : -target_
+C_0018162179630194765227 --> C_0014035470528916335706 : -currentAnimation_
+C_0018162179630194765227 --> C_0014035470528916335706 : -normalAnimation_
+C_0018162179630194765227 --> C_0014035470528916335706 : -hurtAnimation_
+C_0018162179630194765227 --> C_0014035470528916335706 : -deadAnimation_
+C_0018162179630194765227 o-- C_0000788470208375163986 : -currentState_
+C_0017898892907908295482 <|-- C_0018162179630194765227
+C_0000788470208375163986 --+ C_0018162179630194765227
+C_0005375663403181666835 ..> C_0005016775666417918015
+C_0005375663403181666835 ..> C_0004190885704642774566
+C_0005375663403181666835 ..> C_0005636473661436470598
+C_0005375663403181666835 o-- C_0007604850517176651306 : #camera_position_
+C_0005375663403181666835 o-- C_0007604850517176651306 : #world_size_
+C_0005375663403181666835 o-- C_0015751266116942030172 : #children_world_
+C_0005375663403181666835 o-- C_0004008560204300580412 : #children_screen_
+C_0008287048469554089178 <|-- C_0005375663403181666835
+C_0012548018207006845868 --> C_0017898892907908295482 : #parent_
+C_0008287048469554089178 <|-- C_0012548018207006845868
+C_0003716471616022150545 ..> C_0005636473661436470598
+C_0003716471616022150545 ..> C_0007604850517176651306
+C_0003716471616022150545 ..> C_0013762889136459662452
+C_0008545194784379918837 <|-- C_0003716471616022150545
+C_0016296661116101139689 ..> C_0008287048469554089178
+C_0016296661116101139689 ..> C_0005016775666417918015
+C_0016296661116101139689 ..> C_0007604850517176651306
+C_0016296661116101139689 ..> C_0013762889136459662452
+C_0016296661116101139689 --> C_0014035470528916335706 : #spriteAnimation_
+C_0004190885704642774566 <|-- C_0016296661116101139689
+C_0000087236457220292404 ..> C_0005636473661436470598
+C_0000087236457220292404 ..> C_0013762889136459662452
+C_0000087236457220292404 o-- C_0005016775666417918015 : #fontPath_
+C_0008545194784379918837 <|-- C_0000087236457220292404
+C_0002808359341548456591 --> C_0003692324345213718176 : #target_
+C_0008287048469554089178 <|-- C_0002808359341548456591
+C_0007001421234292613054 ..> C_0008287048469554089178
+C_0007001421234292613054 ..> C_0005016775666417918015
+C_0007001421234292613054 ..> C_0013762889136459662452
+C_0007001421234292613054 --> C_0017555429528309779676 : #sprite1_
+C_0007001421234292613054 --> C_0017555429528309779676 : #sprite2_
+C_0005636473661436470598 <|-- C_0007001421234292613054
+C_0009435402263069789949 ..> C_0008287048469554089178
+C_0009435402263069789949 ..> C_0007604850517176651306
+C_0009435402263069789949 --> C_0017898892907908295482 : #target_
+C_0009435402263069789949 --> C_0017555429528309779676 : #healthBar_
+C_0009435402263069789949 --> C_0017555429528309779676 : #healthBarBg_
+C_0009435402263069789949 --> C_0017555429528309779676 : #healthIcon_
+C_0009435402263069789949 --> C_0017555429528309779676 : #manaBar_
+C_0009435402263069789949 --> C_0017555429528309779676 : #manaBarBg_
+C_0009435402263069789949 --> C_0017555429528309779676 : #manaIcon_
+C_0005636473661436470598 <|-- C_0009435402263069789949
+C_0008646296628421776693 ..> C_0008287048469554089178
+C_0008646296628421776693 ..> C_0005016775666417918015
+C_0008646296628421776693 ..> C_0013762889136459662452
+C_0008646296628421776693 --> C_0000087236457220292404 : #textLabel_
+C_0008646296628421776693 --> C_0017555429528309779676 : #spriteBg_
+C_0008646296628421776693 o-- C_0007604850517176651306 : #size_
+C_0005636473661436470598 <|-- C_0008646296628421776693
+C_0012972831500856678694 ..> C_0008287048469554089178
+C_0012972831500856678694 ..> C_0007604850517176651306
+C_0012972831500856678694 ..> C_0005016775666417918015
+C_0012972831500856678694 ..> C_0013762889136459662452
+C_0012972831500856678694 --> C_0017555429528309779676 : #spriteNormal_
+C_0012972831500856678694 --> C_0017555429528309779676 : #spriteHover_
+C_0012972831500856678694 --> C_0017555429528309779676 : #spritePress_
+C_0005636473661436470598 <|-- C_0012972831500856678694
+C_0018111613789678437570 ..> C_0005016775666417918015
+C_0018111613789678437570 --> C_0003692324345213718176 : -player_
+C_0018111613789678437570 --> C_0002808359341548456591 : -spawner_
+C_0018111613789678437570 --> C_0007001421234292613054 : -uiMouse_
+C_0018111613789678437570 --> C_0009435402263069789949 : -hudStats_
+C_0018111613789678437570 --> C_0008646296628421776693 : -hudTextScore_
+C_0018111613789678437570 --> C_0012972831500856678694 : -buttonPause_
+C_0018111613789678437570 --> C_0012972831500856678694 : -buttonRestart_
+C_0018111613789678437570 --> C_0012972831500856678694 : -buttonBack_
+C_0018111613789678437570 --> C_0016540721780518084962 : -endTimer_
+C_0005375663403181666835 <|-- C_0018111613789678437570
+C_0013345201068409400195 ..> C_0005016775666417918015
+C_0013345201068409400195 --> C_0012972831500856678694 : #buttonStart_
+C_0013345201068409400195 --> C_0012972831500856678694 : #buttonCredits_
+C_0013345201068409400195 --> C_0012972831500856678694 : #buttonQuit_
+C_0013345201068409400195 --> C_0008646296628421776693 : #creditsText_
+C_0013345201068409400195 --> C_0007001421234292613054 : #uiMouse_
+C_0005375663403181666835 <|-- C_0013345201068409400195
+C_0015539915825680646582 o-- C_0016478867706980410130 : #starFar_
+C_0015539915825680646582 o-- C_0016478867706980410130 : #starMid_
+C_0015539915825680646582 o-- C_0016478867706980410130 : #starNear_
+C_0008287048469554089178 <|-- C_0015539915825680646582
+
+'Generated with clang-uml, version 0.6.2
+'LLVM version clang version 20.1.7 (https://github.com/llvm/llvm-project.git 6146a88f60492b520a36f8f8f3231e15f3cc6082)
+@enduml

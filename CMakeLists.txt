@@ -84,44 +84,59 @@ if(MSVC)
     target_link_options(${TARGET} PRIVATE "/SUBSYSTEM:WINDOWS")
 endif()
 
-# # clang-uml + PlantUML 设置
-# set(CLANG_UML_CMD clang-uml)                                # clang-uml 可执行路径
-# set(CLANG_UML_CONFIG ${CMAKE_SOURCE_DIR}/.clang-uml.yaml)    # clang-uml 配置
-# set(UML_SRC_DIR ${CMAKE_SOURCE_DIR}/docs/uml)               # .puml 输出目录
-# set(UML_IMG_DIR ${CMAKE_SOURCE_DIR}/docs/images)            # PNG/SVG 输出目录
-# set(PLANTUML_JAR ${CMAKE_SOURCE_DIR}/tools/plantuml.jar)    # PlantUML jar 路径
 
-# # 自定义目标：生成 .puml 文件
-# add_custom_target(generate_puml
-#     COMMAND ${CMAKE_COMMAND} -E make_directory ${UML_SRC_DIR}
-#     COMMAND ${CLANG_UML_CMD} -c ${CLANG_UML_CONFIG}
-#     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-#     COMMENT "Generating PlantUML .puml files with clang-uml"
-# )
+# clang-uml + PlantUML 设置
+set(CLANG_UML_CMD clang-uml)                                # clang-uml 可执行路径
+set(CLANG_UML_CONFIG ${CMAKE_SOURCE_DIR}/.clang-uml.yaml)    # clang-uml 配置
+set(UML_SRC_DIR ${CMAKE_SOURCE_DIR}/docs/uml)               # .puml 输出目录
+set(UML_IMG_DIR ${CMAKE_SOURCE_DIR}/docs/images)            # PNG/SVG 输出目录
+set(PLANTUML_JAR ${CMAKE_SOURCE_DIR}/tools/plantuml.jar)    # PlantUML jar 路径
 
-# # 自定义命令：生成 PNG/SVG
-# file(GLOB PUML_FILES "${UML_SRC_DIR}/*.puml")
-# set(UML_OUTPUTS)
+# 确保输出目录存在
+file(MAKE_DIRECTORY ${UML_SRC_DIR})
+file(MAKE_DIRECTORY ${UML_IMG_DIR})
 
-# foreach(puml ${PUML_FILES})
-#     get_filename_component(fname ${puml} NAME_WE)
+# 自定义目标：生成 .puml 文件
+add_custom_target(generate_puml
+    COMMAND ${CLANG_UML_CMD} -c ${CLANG_UML_CONFIG} -o ${UML_SRC_DIR}
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMENT "Generating PlantUML .puml files with clang-uml"
+)
 
-#     add_custom_command(
-#         OUTPUT  ${UML_IMG_DIR}/${fname}.svg
-#         COMMAND ${CMAKE_COMMAND} -E make_directory ${UML_IMG_DIR}
-#         COMMAND java -Dfile.encoding=UTF-8 -jar ${PLANTUML_JAR} -tsvg -o ${UML_IMG_DIR} ${puml}
-#         DEPENDS ${puml}  # 依赖 .puml 文件
-#         COMMENT "Rendering UML diagrams for ${fname}"
-#     )
+# 自定义命令：生成 PNG/SVG
+file(GLOB PUML_FILES "${UML_SRC_DIR}/*.puml")
+set(UML_OUTPUTS)
 
-#     list(APPEND UML_OUTPUTS ${UML_IMG_DIR}/${fname}.svg)
-# endforeach()
+foreach(puml ${PUML_FILES})
+    get_filename_component(fname ${puml} NAME_WE)
 
-# # 自定义目标：生成 UML 图片，确保依赖顺序
-# add_custom_target(generate_uml ALL
-#     DEPENDS generate_puml ${UML_OUTPUTS}
-#     COMMENT "Generating all UML diagrams (.puml -> .png/.svg)"
-# )
+    # 生成 SVG
+    add_custom_command(
+        OUTPUT ${UML_IMG_DIR}/${fname}.svg
+        COMMAND java -Djava.awt.headless=true -Dfile.encoding=UTF-8 -jar ${PLANTUML_JAR} -tsvg -o ${UML_IMG_DIR} ${puml}
+        DEPENDS ${puml}
+        COMMENT "Generating SVG for ${fname}.puml"
+    )
+
+    # 生成 PNG
+    add_custom_command(
+        OUTPUT ${UML_IMG_DIR}/${fname}.png
+        COMMAND java -Djava.awt.headless=true -Dfile.encoding=UTF-8 -jar ${PLANTUML_JAR} -tpng -o ${UML_IMG_DIR} ${puml}
+        DEPENDS ${puml}
+        COMMENT "Generating PNG for ${fname}.puml"
+    )
+
+    list(APPEND UML_OUTPUTS 
+        ${UML_IMG_DIR}/${fname}.svg
+        ${UML_IMG_DIR}/${fname}.png
+    )
+endforeach()
+
+# 自定义目标：生成 UML 图片
+add_custom_target(generate_uml ALL
+    DEPENDS generate_puml ${UML_OUTPUTS}
+    COMMENT "Generating all UML diagrams (.puml -> .png/.svg)"
+)
 
 # 可选：拷贝 compile_commands.json 到源目录
 # add_custom_target(copy_compile_commands ALL
