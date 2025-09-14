@@ -30,7 +30,7 @@ find_package(SDL3_ttf REQUIRED)
 find_package(glm REQUIRED)
 
 # 添加可执行文件
-add_executable(${TARGET}
+set(SOURCES
     src/core/game.cpp
     src/core/actor.cpp
     src/core/asset_store.cpp
@@ -63,14 +63,26 @@ add_executable(${TARGET}
     src/weapon_thunder.cpp
 )
 
+if(WIN32)
+    list(APPEND SOURCES resources.rc)
+endif()
+
+# 添加可执行文件
+add_executable(${TARGET} ${SOURCES})
+
 # 链接库
 target_link_libraries(${TARGET}
-    ${SDL3_LIBRARIES}
-    SDL3_image::SDL3_image
-    SDL3_mixer::SDL3_mixer
-    SDL3_ttf::SDL3_ttf
-    glm::glm
+                        ${SDL3_LIBRARIES}
+                        SDL3_image::SDL3_image
+                        SDL3_mixer::SDL3_mixer
+                        SDL3_ttf::SDL3_ttf
+                        glm::glm
 )
+
+# 控制不弹出控制台窗口
+if(MSVC)
+    target_link_options(${TARGET} PRIVATE "/SUBSYSTEM:WINDOWS")
+endif()
 
 # # clang-uml + PlantUML 设置
 # set(CLANG_UML_CMD clang-uml)                                # clang-uml 可执行路径
