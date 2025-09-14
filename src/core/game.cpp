@@ -104,8 +104,8 @@ void Game::handleEvents() {
 }
 
 void Game::update(float dt) {
+    updateMouse();
     if (current_scene_) {
-        mouseButtons_ = SDL_GetMouseState(&mousePosition_.x, &mousePosition_.y);
         current_scene_->update(dt);
     }
 }
@@ -259,4 +259,19 @@ std::string Game::loadTextFile(const std::string& filePath) {
         text += line + '\n';
     }
     return text;
+}
+
+void Game::updateMouse() {
+    mouseButtons_ = SDL_GetMouseState(&mousePosition_.x, &mousePosition_.y);
+
+    // 限制比例
+    int weight, height;
+    SDL_GetWindowSize(window_, &weight, &height);
+    SDL_SetWindowAspectRatio(window_, screen_size.x / screen_size.y, screen_size.x / screen_size.y);
+    mousePosition_ *= screen_size / glm::vec2(weight, height);
+
+    // 
+    // SDL_FRect rect;
+    // SDL_GetRenderLogicalPresentationRect(renderer_, &rect);
+    // mousePosition_ = (mousePosition_ - glm::vec2(rect.x, rect.y)) * screen_size / glm::vec2(rect.w, rect.h);
 }

@@ -68,6 +68,8 @@ public:
     TTF_Text* createTTFText(const std::string& text, const std::string& fontPath, int fontSize = 16);
     bool isMouseInRect(const glm::vec2& topLeft, const glm::vec2& bottomRight);
     std::string loadTextFile(const std::string& filePath);
+private:
+    void updateMouse();
 public:
     void run();
     void init(std::string title, int width, int height);
@@ -75,9 +77,6 @@ public:
     void update(float dt);
     void render();
     void clean();
-
-protected:
-
 private:
     Game() = default;
     Game(const Game&) = delete;

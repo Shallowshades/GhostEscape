@@ -30,6 +30,7 @@ private:
     void checkButtonRestart();
     void checkButtonBack();
     void checkEndTimer();
+    void checkSlowDown(float& delta);
 private:
     // glm::vec2 world_size_ = glm::vec2(0);
     Player* player_ = nullptr;
