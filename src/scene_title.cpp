@@ -11,17 +11,17 @@ void SceneTitle::init() {
     loadData("assets/score.dat");
     // SDL_ShowCursor();
     SDL_HideCursor();
-    game_.playMusic("assets/bgm/Spooky music.mp3");
-    auto size = glm::vec2(game_.getScreenSize().x / 2.f, game_.getScreenSize().y / 3.f);
-    HUDText::addHUDTextChild(this, "幽 灵 逃 生", game_.getScreenSize() / 2.f - glm::vec2(0, 100), size, "assets/font/VonwaonBitmap-16px.ttf", 64);
-    auto scoreText = "最高分: " + std::to_string(game_.getHighScore());
-    HUDText::addHUDTextChild(this, scoreText, game_.getScreenSize() / 2.f + glm::vec2(0, 100), glm::vec2(200, 50), "assets/font/VonwaonBitmap-16px.ttf", 32);
-    buttonStart_ = HUDButton::addHUDButtonChild(this, game_.getScreenSize() / 2.f + glm::vec2(-200.f, 200.f), "assets/UI/A_Start1.png", "assets/UI/A_Start2.png", "assets/UI/A_Start3.png", 2.f);
-    buttonCredits_ = HUDButton::addHUDButtonChild(this, game_.getScreenSize() / 2.f + glm::vec2(0.f, 200.f), "assets/UI/A_Credits1.png", "assets/UI/A_Credits2.png", "assets/UI/A_Credits3.png", 2.f);
-    buttonQuit_ = HUDButton::addHUDButtonChild(this, game_.getScreenSize() / 2.f + glm::vec2(200.f, 200.f), "assets/UI/A_Quit1.png", "assets/UI/A_Quit2.png", "assets/UI/A_Quit3.png", 2.f);
+    Game::GetInstance().playMusic("assets/bgm/Spooky music.mp3");
+    auto size = glm::vec2(Game::GetInstance().getScreenSize().x / 2.f, Game::GetInstance().getScreenSize().y / 3.f);
+    HUDText::addHUDTextChild(this, "幽 灵 逃 生", Game::GetInstance().getScreenSize() / 2.f - glm::vec2(0, 100), size, "assets/font/VonwaonBitmap-16px.ttf", 64);
+    auto scoreText = "最高分: " + std::to_string(Game::GetInstance().getHighScore());
+    HUDText::addHUDTextChild(this, scoreText, Game::GetInstance().getScreenSize() / 2.f + glm::vec2(0, 100), glm::vec2(200, 50), "assets/font/VonwaonBitmap-16px.ttf", 32);
+    buttonStart_ = HUDButton::addHUDButtonChild(this, Game::GetInstance().getScreenSize() / 2.f + glm::vec2(-200.f, 200.f), "assets/UI/A_Start1.png", "assets/UI/A_Start2.png", "assets/UI/A_Start3.png", 2.f);
+    buttonCredits_ = HUDButton::addHUDButtonChild(this, Game::GetInstance().getScreenSize() / 2.f + glm::vec2(0.f, 200.f), "assets/UI/A_Credits1.png", "assets/UI/A_Credits2.png", "assets/UI/A_Credits3.png", 2.f);
+    buttonQuit_ = HUDButton::addHUDButtonChild(this, Game::GetInstance().getScreenSize() / 2.f + glm::vec2(200.f, 200.f), "assets/UI/A_Quit1.png", "assets/UI/A_Quit2.png", "assets/UI/A_Quit3.png", 2.f);
 
-    auto text = game_.loadTextFile("assets/credits.txt");
-    creditsText_ = HUDText::addHUDTextChild(this, text, game_.getScreenSize() / 2.f, glm::vec2(500.f, 500.f), "assets/font/VonwaonBitmap-16px.ttf", 16);
+    auto text = Game::GetInstance().loadTextFile("assets/credits.txt");
+    creditsText_ = HUDText::addHUDTextChild(this, text, Game::GetInstance().getScreenSize() / 2.f, glm::vec2(500.f, 500.f), "assets/font/VonwaonBitmap-16px.ttf", 16);
     creditsText_->setBgSizeByText();
     creditsText_->setActive(false);
 
@@ -70,11 +70,11 @@ void SceneTitle::loadData(const std::string& filePath) {
         file.read(reinterpret_cast<char*>(&score), sizeof(score));
         file.close();
     }
-    game_.setHighScore(score);
+    Game::GetInstance().setHighScore(score);
 }
 
 void SceneTitle::renderBackground() {
-    game_.drawBoundary(glm::vec2(30.f), game_.getScreenSize() - glm::vec2(30.f), 10.f, boundaryColor_);
+    Game::GetInstance().drawBoundary(glm::vec2(30.f), Game::GetInstance().getScreenSize() - glm::vec2(30.f), 10.f, boundaryColor_);
 }
 
 void SceneTitle::updateColor() {
@@ -85,14 +85,14 @@ void SceneTitle::updateColor() {
 
 void SceneTitle::checkButtonQuit() {
     if (buttonQuit_->getIsTrigger()) {
-        game_.quit();
+        Game::GetInstance().quit();
     }
 }
 
 void SceneTitle::checkButtonStart() {
     if (buttonStart_->getIsTrigger()) {
         auto scene = new SceneMain();
-        game_.safeChangeScene(scene);
+        Game::GetInstance().safeChangeScene(scene);
     }
 }
 

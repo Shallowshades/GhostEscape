@@ -16,7 +16,7 @@ void Weapon::attack(glm::vec2 position, Spell* spell) {
     parent_->getStats()->useMana(manaCost_);
     coolDawnTimer_ = 0.f;
     spell->setWorldPosition(position);
-    game_.getCurrentScene()->safeAddChild(spell);
+    Game::GetInstance().getCurrentScene()->safeAddChild(spell);
 }
 
 bool Weapon::canAttack() {

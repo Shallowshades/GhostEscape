@@ -15,7 +15,7 @@ HUDSkill* HUDSkill::addHUDSkillChild(Object* parent, const std::string& filePath
 void HUDSkill::render() {
     SDL_SetTextureColorModFloat(icon_->getTexture().texture, 0.3, 0.3, 0.3);
     auto position = getRenderPosition() + icon_->getOffset();
-    game_.renderTexture(icon_->getTexture(), position, icon_->getSize());
+    Game::GetInstance().renderTexture(icon_->getTexture(), position, icon_->getSize());
     SDL_SetTextureColorModFloat(icon_->getTexture().texture, 1.0, 1.0, 1.0);
     ObjectScreen::render();
 }

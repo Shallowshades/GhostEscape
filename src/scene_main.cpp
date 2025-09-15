@@ -10,9 +10,9 @@
 void SceneMain::init() {
     Scene::init();
     SDL_HideCursor();
-    game_.playMusic("assets/bgm/OhMyGhost.ogg");
-    world_size_ = game_.getScreenSize() * 3.0f;
-    camera_position_ = world_size_ / 2.f - game_.getScreenSize() / 2.f;
+    Game::GetInstance().playMusic("assets/bgm/OhMyGhost.ogg");
+    world_size_ = Game::GetInstance().getScreenSize() * 3.0f;
+    camera_position_ = world_size_ / 2.f - Game::GetInstance().getScreenSize() / 2.f;
     player_ = new Player;
     player_->init();
     player_->setWorldPosition(world_size_ / 2.f);
@@ -27,12 +27,12 @@ void SceneMain::init() {
     spawner_->setTarget(player_);
     addChild(spawner_);
 
-    buttonPause_ = HUDButton::addHUDButtonChild(this, game_.getScreenSize() - glm::vec2(230.f, 30.f), "assets/UI/A_Pause1.png", "assets/UI/A_Pause2.png", "assets/UI/A_Pause3.png");
-    buttonRestart_ = HUDButton::addHUDButtonChild(this, game_.getScreenSize() - glm::vec2(140.f, 30.f), "assets/UI/A_Restart1.png", "assets/UI/A_Restart2.png", "assets/UI/A_Restart3.png");
-    buttonBack_ = HUDButton::addHUDButtonChild(this, game_.getScreenSize() - glm::vec2(50.f, 30.f), "assets/UI/A_Back1.png", "assets/UI/A_Back2.png", "assets/UI/A_Back3.png");
+    buttonPause_ = HUDButton::addHUDButtonChild(this, Game::GetInstance().getScreenSize() - glm::vec2(230.f, 30.f), "assets/UI/A_Pause1.png", "assets/UI/A_Pause2.png", "assets/UI/A_Pause3.png");
+    buttonRestart_ = HUDButton::addHUDButtonChild(this, Game::GetInstance().getScreenSize() - glm::vec2(140.f, 30.f), "assets/UI/A_Restart1.png", "assets/UI/A_Restart2.png", "assets/UI/A_Restart3.png");
+    buttonBack_ = HUDButton::addHUDButtonChild(this, Game::GetInstance().getScreenSize() - glm::vec2(50.f, 30.f), "assets/UI/A_Back1.png", "assets/UI/A_Back2.png", "assets/UI/A_Back3.png");
 
     hudStats_ = HUDStats::addHUDStatsChild(this, player_, glm::vec2(30.f));
-    hudTextScore_ = HUDText::addHUDTextChild(this, "Score: 0", glm::vec2(game_.getScreenSize().x - 120.f, 30.f), glm::vec2(200, 50));
+    hudTextScore_ = HUDText::addHUDTextChild(this, "Score: 0", glm::vec2(Game::GetInstance().getScreenSize().x - 120.f, 30.f), glm::vec2(200, 50));
 
     uiMouse_ = UIMouse::addUIMouseChild(this, "assets/UI/29.png", "assets/UI/30.png", 1.f, Anchor::CENTER);
 
@@ -69,7 +69,7 @@ void SceneMain::clean() {
 }
 
 void SceneMain::saveData(const std::string& filePath) {
-    auto score = game_.getHighScore();
+    auto score = Game::GetInstance().getHighScore();
     std::ofstream file(filePath, std::ios::binary);
     if (file.is_open()) {
         file.write(reinterpret_cast<const char*>(&score), sizeof(score));
@@ -80,12 +80,12 @@ void SceneMain::saveData(const std::string& filePath) {
 void SceneMain::renderBackground() {
     auto start = -camera_position_;
     auto end = world_size_ - camera_position_;
-    game_.drawGrid(start, end, 80.0f, SDL_FColor{ 0.5f, 0.5f, 0.5f, 1.0f });
-    game_.drawBoundary(start, end, 5.0f, SDL_FColor{ 1.0f, 1.0f, 1.0f, 1.0f });
+    Game::GetInstance().drawGrid(start, end, 80.0f, SDL_FColor{ 0.5f, 0.5f, 0.5f, 1.0f });
+    Game::GetInstance().drawBoundary(start, end, 5.0f, SDL_FColor{ 1.0f, 1.0f, 1.0f, 1.0f });
 }
 
 void SceneMain::updateScore() {
-    hudTextScore_->setText("Score: " + std::to_string(game_.getScore()));
+    hudTextScore_->setText("Score: " + std::to_string(Game::GetInstance().getScore()));
 }
 
 void SceneMain::checkButtonPause() {
@@ -105,9 +105,9 @@ void SceneMain::checkButtonRestart() {
         return;
     }
     saveData("assets/score.dat");
-    game_.setScore(0);
+    Game::GetInstance().setScore(0);
     auto scene = new SceneMain();
-    game_.safeChangeScene(scene);
+    Game::GetInstance().safeChangeScene(scene);
 }
 
 void SceneMain::checkButtonBack() {
@@ -115,9 +115,9 @@ void SceneMain::checkButtonBack() {
         return;
     }
     saveData("assets/score.dat");
-    game_.setScore(0);
+    Game::GetInstance().setScore(0);
     auto scene = new SceneTitle();
-    game_.safeChangeScene(scene);
+    Game::GetInstance().safeChangeScene(scene);
 }
 
 void SceneMain::checkEndTimer() {
@@ -125,17 +125,17 @@ void SceneMain::checkEndTimer() {
         return;
     }
     pause();
-    game_.resumeMusic();
-    buttonRestart_->setRenderPosition(game_.getScreenSize() / 2.f - glm::vec2(200.f, 0.f));
+    Game::GetInstance().resumeMusic();
+    buttonRestart_->setRenderPosition(Game::GetInstance().getScreenSize() / 2.f - glm::vec2(200.f, 0.f));
     buttonRestart_->setScale(4.f);
-    buttonBack_->setRenderPosition(game_.getScreenSize() / 2.f + glm::vec2(200.f, 0.f));
+    buttonBack_->setRenderPosition(Game::GetInstance().getScreenSize() / 2.f + glm::vec2(200.f, 0.f));
     buttonBack_->setScale(4.f);
     buttonPause_->setActive(false);
     endTimer_->stop();
 }
 
 void SceneMain::checkSlowDown(float& delta) {
-    if (game_.getMouseButtons() & SDL_BUTTON_RMASK) {
+    if (Game::GetInstance().getMouseButtons() & SDL_BUTTON_RMASK) {
         delta *= 0.4;
     }
 }

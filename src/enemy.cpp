@@ -72,7 +72,7 @@ void Enemy::changeState(State state) {
         break;
     case State::DEAD:
         currentAnimation_ = deadAnimation_;
-        game_.addScore(score_);
+        Game::GetInstance().addScore(score_);
         break;
     }
 

@@ -48,7 +48,7 @@ void Player::render() {
         return;
     }
     Actor::render();
-    // game_.drawBoundary(render_position_, render_position_ + glm::vec2(20.f), 5.0f, { 1.f, 0.f, 0.f, 1.f });
+    // Game::GetInstance().drawBoundary(render_position_, render_position_ + glm::vec2(20.f), 5.0f, { 1.f, 0.f, 0.f, 1.f });
 }
 
 void Player::clean() {
@@ -60,7 +60,7 @@ void Player::takeDamage(float damage) {
         return;
     }
     Actor::takeDamage(damage);
-    game_.playSound("assets/sound/hit-flesh-02-266309.mp3");
+    Game::GetInstance().playSound("assets/sound/hit-flesh-02-266309.mp3");
 }
 
 void Player::keyboardControl() {
@@ -84,7 +84,7 @@ void Player::keyboardControl() {
 }
 
 void Player::syncCamera() {
-    game_.getCurrentScene()->setCameraPosition(world_position_ - game_.getScreenSize() / 2.0f);
+    Game::GetInstance().getCurrentScene()->setCameraPosition(world_position_ - Game::GetInstance().getScreenSize() / 2.0f);
 }
 
 void Player::checkState() {
@@ -124,6 +124,6 @@ void Player::checkIsDead() {
         effect_->setWorldPosition(getWorldPosition());
         effect_->setActive(true);
         setActive(false);
-        game_.playSound("assets/sound/female-scream-02-89290.mp3");
+        Game::GetInstance().playSound("assets/sound/female-scream-02-89290.mp3");
     }
 }

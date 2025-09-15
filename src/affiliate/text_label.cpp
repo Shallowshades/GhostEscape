@@ -30,23 +30,23 @@ void TextLabel::clean() {
 void TextLabel::setFont(const std::string& fontPath, int fontSize) {
     fontPath_ = fontPath;
     fontSize_ = fontSize;
-    auto font = game_.getAssetStore()->getFont(fontPath_, fontSize_);
+    auto font = Game::GetInstance().getAssetStore()->getFont(fontPath_, fontSize_);
     if (!ttfText_) {
-        ttfText_ = game_.createTTFText("", fontPath_, fontSize_);
+        ttfText_ = Game::GetInstance().createTTFText("", fontPath_, fontSize_);
     }
     TTF_SetTextFont(ttfText_, font);
 }
 
 void TextLabel::setFontPath(const std::string& fontPath) {
     fontPath_ = fontPath;
-    auto font = game_.getAssetStore()->getFont(fontPath_, fontSize_);
+    auto font = Game::GetInstance().getAssetStore()->getFont(fontPath_, fontSize_);
     TTF_SetTextFont(ttfText_, font);
     updateSize();
 }
 
 void TextLabel::setFontSize(int fontSize) {
     fontSize_ = fontSize;
-    auto font = game_.getAssetStore()->getFont(fontPath_, fontSize_);
+    auto font = Game::GetInstance().getAssetStore()->getFont(fontPath_, fontSize_);
     TTF_SetTextFont(ttfText_, font);
     updateSize();
 }

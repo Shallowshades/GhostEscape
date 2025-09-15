@@ -32,7 +32,7 @@ void Effect::checkFinished() {
     if (sprite_->isFinished()) {
         isNeedRemove_ = true;
         if (nextObject_) {
-            game_.getCurrentScene()->safeAddChild(nextObject_);
+            Game::GetInstance().getCurrentScene()->safeAddChild(nextObject_);
             nextObject_ = nullptr;                                  // 交给场景管理
         }
     }
