@@ -32,7 +32,7 @@ private:
     void checkEndTimer();
     void checkSlowDown(float& delta);
 private:
-    // glm::vec2 world_size_ = glm::vec2(0);
+    // glm::vec2 worldSize_ = glm::vec2(0);
     Player* player_ = nullptr;
     Spawner* spawner_ = nullptr;
     UIMouse* uiMouse_ = nullptr;

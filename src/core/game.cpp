@@ -9,7 +9,7 @@ constexpr float PER_SEC = 1000000000.f; // 1 second in nanoseconds
 // constexpr Uint64 PER_MSEC = 1000000; // 1 millisecond in nanoseconds 
 
 void Game::run() {
-    while (is_running_) {
+    while (isRunning_) {
         auto start = SDL_GetTicksNS();
         if (nextScene_) {
             changeScene(nextScene_);
@@ -19,9 +19,9 @@ void Game::run() {
         update(dt_);
         render();
         auto elapsed = SDL_GetTicksNS() - start;
-        if (elapsed < frame_delay_) {
-            SDL_DelayNS(frame_delay_ - elapsed);
-            dt_ = static_cast<float>(frame_delay_ / PER_SEC);
+        if (elapsed < frameDelay_) {
+            SDL_DelayNS(frameDelay_ - elapsed);
+            dt_ = static_cast<float>(frameDelay_ / PER_SEC);
         }
         else {
             dt_ = static_cast<float>(elapsed / PER_SEC);
@@ -30,7 +30,7 @@ void Game::run() {
 }
 
 void Game::init(std::string title, int width, int height) {
-    screen_size = glm::vec2(width, height);
+    screenSize_ = glm::vec2(width, height);
     // SDL3 init
     if (!SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO)) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL Init Failed: %s\n", SDL_GetError());
@@ -72,19 +72,19 @@ void Game::init(std::string title, int width, int height) {
     ttfEngine_ = TTF_CreateRendererTextEngine(renderer_);
 
     // Calculate frame delay
-    frame_delay_ = PER_SEC / FPS_;
+    frameDelay_ = PER_SEC / FPS_;
 
     // Create asset manager
-    asset_store_ = new AssetStore(renderer_);
-    if (!asset_store_) {
+    assetStore_ = new AssetStore(renderer_);
+    if (!assetStore_) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "AssetStore Creation Failed: %s\n", SDL_GetError());
         return;
     }
 
     // Create scene
-    // current_scene_ = new SceneMain();
-    current_scene_ = new SceneTitle();
-    current_scene_->init();
+    // currentScene_ = new SceneMain();
+    currentScene_ = new SceneTitle();
+    currentScene_->init();
 }
 
 void Game::handleEvents() {
@@ -92,11 +92,11 @@ void Game::handleEvents() {
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
         case SDL_EVENT_QUIT:
-            is_running_ = false;
+            isRunning_ = false;
             break;
         default:
-            if (current_scene_) {
-                current_scene_->handleEvents(event);
+            if (currentScene_) {
+                currentScene_->handleEvents(event);
             }
             break;
         }
@@ -105,30 +105,30 @@ void Game::handleEvents() {
 
 void Game::update(float dt) {
     updateMouse();
-    if (current_scene_) {
-        current_scene_->update(dt);
+    if (currentScene_) {
+        currentScene_->update(dt);
     }
 }
 
 void Game::render() {
     SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
     SDL_RenderClear(renderer_);
-    if (current_scene_) {
-        current_scene_->render();
+    if (currentScene_) {
+        currentScene_->render();
     }
     SDL_RenderPresent(renderer_);
 }
 
 void Game::clean() {
-    if (current_scene_) {
-        current_scene_->clean();
-        delete current_scene_;
-        current_scene_ = nullptr;
+    if (currentScene_) {
+        currentScene_->clean();
+        delete currentScene_;
+        currentScene_ = nullptr;
     }
-    if (asset_store_) {
-        asset_store_->clean();
-        delete asset_store_;
-        asset_store_ = nullptr;
+    if (assetStore_) {
+        assetStore_->clean();
+        delete assetStore_;
+        assetStore_ = nullptr;
     }
     if (ttfEngine_) {
         TTF_DestroyRendererTextEngine(ttfEngine_);
@@ -159,12 +159,12 @@ void Game::addScore(int score) {
 }
 
 void Game::changeScene(Scene* scene) {
-    if (current_scene_) {
-        current_scene_->clean();
-        delete current_scene_;
+    if (currentScene_) {
+        currentScene_->clean();
+        delete currentScene_;
     }
-    current_scene_ = scene;
-    current_scene_->init();
+    currentScene_ = scene;
+    currentScene_->init();
 }
 
 void Game::renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask) {
@@ -193,7 +193,7 @@ void Game::renderHealthBar(const glm::vec2& position, const glm::vec2& size, flo
 }
 
 void Game::renderFillCircle(const glm::vec2& position, const glm::vec2& size, float alpha) {
-    auto texture = asset_store_->getTexture("assets/UI/circle.png");
+    auto texture = assetStore_->getTexture("assets/UI/circle.png");
     SDL_FRect dst_rect = {
         position.x,
         position.y,
@@ -240,7 +240,7 @@ void Game::drawPoints(const std::vector<glm::vec2>& points, glm::vec2 renderPosi
 }
 
 TTF_Text* Game::createTTFText(const std::string& text, const std::string& fontPath, int fontSize) {
-    auto font = asset_store_->getFont(fontPath, fontSize);
+    auto font = assetStore_->getFont(fontPath, fontSize);
     return TTF_CreateText(ttfEngine_, font, text.c_str(), 0);
 }
 
@@ -267,11 +267,11 @@ void Game::updateMouse() {
     // 限制比例
     int weight, height;
     SDL_GetWindowSize(window_, &weight, &height);
-    SDL_SetWindowAspectRatio(window_, screen_size.x / screen_size.y, screen_size.x / screen_size.y);
-    mousePosition_ *= screen_size / glm::vec2(weight, height);
+    SDL_SetWindowAspectRatio(window_, screenSize_.x / screenSize_.y, screenSize_.x / screenSize_.y);
+    mousePosition_ *= screenSize_ / glm::vec2(weight, height);
 
     // 
     // SDL_FRect rect;
     // SDL_GetRenderLogicalPresentationRect(renderer_, &rect);
-    // mousePosition_ = (mousePosition_ - glm::vec2(rect.x, rect.y)) * screen_size / glm::vec2(rect.w, rect.h);
+    // mousePosition_ = (mousePosition_ - glm::vec2(rect.x, rect.y)) * screenSize_ / glm::vec2(rect.w, rect.h);
 }

@@ -1,5 +1,5 @@
-#ifndef ASSET_STORE_H
-#define ASSET_STORE_H
+#ifndef assetStore_H
+#define assetStore_H
 
 #include <string>
 #include <unordered_map>
@@ -37,4 +37,4 @@ private:
     std::unordered_map<std::string, TTF_Font*> fonts_;
 };
 
-#endif // ASSET_STORE_H
+#endif // assetStore_H

@@ -3,7 +3,7 @@
 bool Scene::handleEvents(SDL_Event& event) {
     // 屏幕对象多为hud, text, button, label等必须处理的事件
     // 世界对象是为暂停对象
-    for (auto& child : children_screen_) {
+    for (auto& child : childrenScreen_) {
         if (child->isActive()) {
             if (child->handleEvents(event)) {
                 return true;
@@ -14,7 +14,7 @@ bool Scene::handleEvents(SDL_Event& event) {
         return false;
     }
     Object::handleEvents(event);
-    for (auto& child : children_world_) {
+    for (auto& child : childrenWorld_) {
         if (child->isActive()) {
             if (child->handleEvents(event)) {
                 return true;
@@ -27,11 +27,11 @@ bool Scene::handleEvents(SDL_Event& event) {
 void Scene::update(float deltaTime) {
     if (!isPause_) {
         Object::update(deltaTime);
-        for (auto iter = children_world_.begin(); iter != children_world_.end(); ) {
+        for (auto iter = childrenWorld_.begin(); iter != childrenWorld_.end(); ) {
             if ((*iter)->isNeedRemove()) {
                 (*iter)->clean();
                 delete* iter;
-                iter = children_world_.erase(iter);
+                iter = childrenWorld_.erase(iter);
             }
             else {
                 if ((*iter)->isActive()) {
@@ -41,11 +41,11 @@ void Scene::update(float deltaTime) {
             }
         }
     }
-    for (auto iter = children_screen_.begin(); iter != children_screen_.end(); ) {
+    for (auto iter = childrenScreen_.begin(); iter != childrenScreen_.end(); ) {
         if ((*iter)->isNeedRemove()) {
             (*iter)->clean();
             delete* iter;
-            iter = children_screen_.erase(iter);
+            iter = childrenScreen_.erase(iter);
         }
         else {
             if ((*iter)->isActive()) {
@@ -58,12 +58,12 @@ void Scene::update(float deltaTime) {
 
 void Scene::render() {
     Object::render();
-    for (auto& child : children_world_) {
+    for (auto& child : childrenWorld_) {
         if (child->isActive()) {
             child->render();
         }
     }
-    for (auto& child : children_screen_) {
+    for (auto& child : childrenScreen_) {
         if (child->isActive()) {
             child->render();
         }
@@ -72,28 +72,28 @@ void Scene::render() {
 
 void Scene::clean() {
     Object::clean();
-    for (auto& child : children_world_) {
+    for (auto& child : childrenWorld_) {
         child->clean();
         delete child;
         child = nullptr;
     }
-    for (auto& child : children_screen_) {
+    for (auto& child : childrenScreen_) {
         child->clean();
         delete child;
         child = nullptr;
     }
-    children_world_.clear();
-    children_screen_.clear();
+    childrenWorld_.clear();
+    childrenScreen_.clear();
 }
 
 void Scene::addChild(Object* child) {
     switch (child->getType()) {
     case ObjectType::OBJECT_WORLD:
     case ObjectType::ENEMY:
-        children_world_.push_back(static_cast<ObjectWorld*>(child));
+        childrenWorld_.push_back(static_cast<ObjectWorld*>(child));
         break;
     case ObjectType::OBJECT_SCREEN:
-        children_screen_.push_back(static_cast<ObjectScreen*>(child));
+        childrenScreen_.push_back(static_cast<ObjectScreen*>(child));
         break;
     default:
         Object::addChild(child);
@@ -105,10 +105,10 @@ void Scene::removeChild(Object* child) {
     switch (child->getType()) {
     case ObjectType::OBJECT_WORLD:
     case ObjectType::ENEMY:
-        children_world_.erase(std::remove(children_world_.begin(), children_world_.end(), static_cast<ObjectWorld*>(child)), children_world_.end());
+        childrenWorld_.erase(std::remove(childrenWorld_.begin(), childrenWorld_.end(), static_cast<ObjectWorld*>(child)), childrenWorld_.end());
         break;
     case ObjectType::OBJECT_SCREEN:
-        children_screen_.erase(std::remove(children_screen_.begin(), children_screen_.end(), static_cast<ObjectScreen*>(child)), children_screen_.end());
+        childrenScreen_.erase(std::remove(childrenScreen_.begin(), childrenScreen_.end(), static_cast<ObjectScreen*>(child)), childrenScreen_.end());
         break;
     default:
         Object::removeChild(child);
@@ -129,6 +129,6 @@ void Scene::resume() {
 }
 
 void Scene::setCameraPosition(const glm::vec2& position) {
-    camera_position_ = position;
-    camera_position_ = glm::clamp(camera_position_, glm::vec2(-30), world_size_ - Game::GetInstance().getScreenSize() + glm::vec2(30));
+    cameraPosition_ = position;
+    cameraPosition_ = glm::clamp(cameraPosition_, glm::vec2(-30), worldSize_ - Game::GetInstance().getScreenSize() + glm::vec2(30));
 }

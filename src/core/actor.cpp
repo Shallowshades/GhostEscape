@@ -4,8 +4,8 @@
 #include "../affiliate/affiliate_bar.h"
 
 void Actor::move(float deltaTime) {
-    setWorldPosition(world_position_ + velocity_ * deltaTime);
-    // world_position_ = glm::clamp(world_position_, glm::vec2(0, 0), Game::GetInstance().getCurrentScene()->getWorldSize());
+    setWorldPosition(worldPosition_ + velocity_ * deltaTime);
+    // worldPosition_ = glm::clamp(worldPosition_, glm::vec2(0, 0), Game::GetInstance().getCurrentScene()->getWorldSize());
 
     // 根据碰撞盒大小限制移动区域
     glm::vec2 marginTopLeft = glm::vec2(0.f);
@@ -14,7 +14,7 @@ void Actor::move(float deltaTime) {
         marginTopLeft = collider_->getOffset();
         marginBottomRight = collider_->getOffset() + collider_->getSize();
     }
-    world_position_ = glm::clamp(world_position_, glm::vec2(0.f) - marginTopLeft, Game::GetInstance().getCurrentScene()->getWorldSize() - marginBottomRight);
+    worldPosition_ = glm::clamp(worldPosition_, glm::vec2(0.f) - marginTopLeft, Game::GetInstance().getCurrentScene()->getWorldSize() - marginBottomRight);
 }
 
 void Actor::updateHealthBar() {

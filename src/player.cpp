@@ -10,11 +10,11 @@ void Player::init() {
     Actor::init();
     flashTimer_ = Timer::addTimerChild(this, 0.4f);
     flashTimer_->start();
-    max_speed_ = 500.0f;
-    sprite_idle_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-idle.png", 2.f);
-    sprite_move_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-move.png", 2.f);
-    sprite_move_->setActive(false);
-    collider_ = Collider::addColliderChild(this, sprite_idle_->getSize() / 2.f);
+    maxSpeed_ = 500.0f;
+    spriteIdle_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-idle.png", 2.f);
+    spriteMove_ = SpriteAnimation::addSpriteAnimationChild(this, "assets/sprite/ghost-move.png", 2.f);
+    spriteMove_->setActive(false);
+    collider_ = Collider::addColliderChild(this, spriteIdle_->getSize() / 2.f);
     stats_ = Stats::addStatsChild(this);
 
     // 直接挂载到场景,但是不激活
@@ -48,7 +48,7 @@ void Player::render() {
         return;
     }
     Actor::render();
-    // Game::GetInstance().drawBoundary(render_position_, render_position_ + glm::vec2(20.f), 5.0f, { 1.f, 0.f, 0.f, 1.f });
+    // Game::GetInstance().drawBoundary(renderPosition_, renderPosition_ + glm::vec2(20.f), 5.0f, { 1.f, 0.f, 0.f, 1.f });
 }
 
 void Player::clean() {
@@ -66,56 +66,56 @@ void Player::takeDamage(float damage) {
 void Player::keyboardControl() {
     auto currentKeyStates = SDL_GetKeyboardState(nullptr);
     if (currentKeyStates[SDL_SCANCODE_W]) {
-        velocity_.y = -max_speed_;
+        velocity_.y = -maxSpeed_;
     }
     if (currentKeyStates[SDL_SCANCODE_S]) {
-        velocity_.y = max_speed_;
+        velocity_.y = maxSpeed_;
     }
     if (currentKeyStates[SDL_SCANCODE_A]) {
-        velocity_.x = -max_speed_;
+        velocity_.x = -maxSpeed_;
     }
     if (currentKeyStates[SDL_SCANCODE_D]) {
-        velocity_.x = max_speed_;
+        velocity_.x = maxSpeed_;
     }
 
     if (glm::length(velocity_) != 0) {
-        velocity_ = glm::normalize(velocity_) * max_speed_;
+        velocity_ = glm::normalize(velocity_) * maxSpeed_;
     }
 }
 
 void Player::syncCamera() {
-    Game::GetInstance().getCurrentScene()->setCameraPosition(world_position_ - Game::GetInstance().getScreenSize() / 2.0f);
+    Game::GetInstance().getCurrentScene()->setCameraPosition(worldPosition_ - Game::GetInstance().getScreenSize() / 2.0f);
 }
 
 void Player::checkState() {
     if (velocity_.x < 0) {
-        sprite_move_->setFlip(true);
-        sprite_idle_->setFlip(true);
+        spriteMove_->setFlip(true);
+        spriteIdle_->setFlip(true);
     }
     else {
-        sprite_move_->setFlip(false);
-        sprite_idle_->setFlip(false);
+        spriteMove_->setFlip(false);
+        spriteIdle_->setFlip(false);
     }
 
     bool new_is_moving = (velocity_.x != 0 || velocity_.y != 0);
-    if (new_is_moving != is_moving_) {
-        is_moving_ = new_is_moving;
-        changeState(is_moving_);
+    if (new_is_moving != isMoving_) {
+        isMoving_ = new_is_moving;
+        changeState(isMoving_);
     }
 }
 
 void Player::changeState(bool isMoving) {
     if (isMoving) {
-        sprite_idle_->setActive(false);
-        sprite_move_->setActive(true);
-        sprite_move_->setCurrentFrame(sprite_idle_->getCurrentFrame());
-        sprite_move_->setFrameTimer(sprite_idle_->getFrameTimer());
+        spriteIdle_->setActive(false);
+        spriteMove_->setActive(true);
+        spriteMove_->setCurrentFrame(spriteIdle_->getCurrentFrame());
+        spriteMove_->setFrameTimer(spriteIdle_->getFrameTimer());
     }
     else {
-        sprite_idle_->setActive(true);
-        sprite_move_->setActive(false);
-        sprite_idle_->setCurrentFrame(sprite_move_->getCurrentFrame());
-        sprite_idle_->setFrameTimer(sprite_move_->getFrameTimer());
+        spriteIdle_->setActive(true);
+        spriteMove_->setActive(false);
+        spriteIdle_->setCurrentFrame(spriteMove_->getCurrentFrame());
+        spriteIdle_->setFrameTimer(spriteMove_->getFrameTimer());
     }
 }
 

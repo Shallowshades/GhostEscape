@@ -7,8 +7,8 @@ class Timer : public Object {
 public:
     static Timer* addTimerChild(Object* parent, float interval = 3.f);
     virtual void update(float delta) override;
-    void start() { is_active_ = true; }
-    void stop() { is_active_ = false; }
+    void start() { isActive_ = true; }
+    void stop() { isActive_ = false; }
     bool timeOut();
     float getProgress() { return timer_ / interval_; }
 

@@ -22,12 +22,12 @@ public:
     void changeState(bool moving);
     void checkIsDead();
 private:
-    SpriteAnimation* sprite_idle_ = nullptr;
-    SpriteAnimation* sprite_move_ = nullptr;
+    SpriteAnimation* spriteIdle_ = nullptr;
+    SpriteAnimation* spriteMove_ = nullptr;
     Effect* effect_ = nullptr;
     WeaponThunder* weaponThunder_ = nullptr;
     Timer* flashTimer_ = nullptr;
-    bool is_moving_ = false;
+    bool isMoving_ = false;
 };
 
 #endif // PLAYER_H

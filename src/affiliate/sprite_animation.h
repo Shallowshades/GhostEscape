@@ -10,21 +10,21 @@ public:
 
     virtual void setTexture(const Texture& texture) override;
 
-    int getCurrentFrame() const { return current_frame_; }
-    void setCurrentFrame(int frame) { current_frame_ = frame; }
-    int getTotalFrames() const { return total_frames_; }
-    void setTotalFrames(int frames) { total_frames_ = frames; }
+    int getCurrentFrame() const { return currentFrame_; }
+    void setCurrentFrame(int frame) { currentFrame_ = frame; }
+    int getTotalFrames() const { return totalFrames_; }
+    void setTotalFrames(int frames) { totalFrames_ = frames; }
     int getFPS() const { return fps_; }
     void setFPS(int fps) { fps_ = fps; }
-    float getFrameTimer() const { return frame_timer; }
-    void setFrameTimer(float timer) { frame_timer = timer; }
+    float getFrameTimer() const { return frameTimer; }
+    void setFrameTimer(float timer) { frameTimer = timer; }
     bool isLoop() const { return isLoop_; }
     void setLoop(bool loop) { isLoop_ = loop; }
 private:
-    int current_frame_;
-    int total_frames_;
+    int currentFrame_;
+    int totalFrames_;
     int fps_ = 10;
-    float frame_timer = 0.f;
+    float frameTimer = 0.f;
     bool isLoop_ = true;
 };
 

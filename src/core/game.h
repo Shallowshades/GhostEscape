@@ -22,9 +22,9 @@ public:
         return instance;
     }
 public:
-    glm::vec2 getScreenSize() const { return screen_size; }
-    AssetStore* getAssetStore() const { return asset_store_; }
-    Scene* getCurrentScene() const { return current_scene_; }
+    glm::vec2 getScreenSize() const { return screenSize_; }
+    AssetStore* getAssetStore() const { return assetStore_; }
+    Scene* getCurrentScene() const { return currentScene_; }
     glm::vec2 getMousePosition() const { return mousePosition_; }
     SDL_MouseButtonFlags getMouseButtons() const { return mouseButtons_; }
     void setScore(int score);
@@ -33,12 +33,12 @@ public:
     int getHighScore() const { return highScore_; }
 public:
     void addScore(int score);
-    void quit() { is_running_ = false; }
+    void quit() { isRunning_ = false; }
     void safeChangeScene(Scene* scene) { nextScene_ = scene; }
     void changeScene(Scene* scene);
 public:
-    void playMusic(const std::string& musicPath, bool loop = true) { Mix_PlayMusic(asset_store_->getMusic(musicPath), loop ? -1 : 0); }
-    void playSound(const std::string& soundPath) { Mix_PlayChannel(-1, asset_store_->getSound(soundPath), 0); }
+    void playMusic(const std::string& musicPath, bool loop = true) { Mix_PlayMusic(assetStore_->getMusic(musicPath), loop ? -1 : 0); }
+    void playSound(const std::string& soundPath) { Mix_PlayChannel(-1, assetStore_->getSound(soundPath), 0); }
     void stopMusic() { Mix_HaltMusic(); }
     void stopSound() { Mix_HaltChannel(-1); }
     void pauseMusic() { Mix_PausedMusic(); }
@@ -82,16 +82,16 @@ private:
     Game(const Game&) = delete;
     Game operator= (const Game&) = delete;
 private:
-    glm::vec2 screen_size = glm::vec2(0);
-    bool is_running_ = true;
-    Scene* current_scene_ = nullptr;
+    glm::vec2 screenSize_ = glm::vec2(0);
+    bool isRunning_ = true;
+    Scene* currentScene_ = nullptr;
     Scene* nextScene_ = nullptr;
 
     glm::vec2 mousePosition_ = glm::vec2(0);
     SDL_MouseButtonFlags mouseButtons_ = 0;
 
     Uint64 FPS_ = 60;
-    Uint64 frame_delay_ = 0;
+    Uint64 frameDelay_ = 0;
     float dt_ = 0.0f;
 
     int score_ = 0;
@@ -102,7 +102,7 @@ private:
 
     std::mt19937 gen_ = std::mt19937(std::random_device{}());
 
-    AssetStore* asset_store_ = nullptr;
+    AssetStore* assetStore_ = nullptr;
     TTF_TextEngine* ttfEngine_ = nullptr;
 };
 

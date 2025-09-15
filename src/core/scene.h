@@ -27,26 +27,26 @@ public:
     virtual void loadData([[maybe_unused]] const std::string& filePath) {}
 
     glm::vec2 worldToScreenPosition(const glm::vec2& worldPosition) const {
-        return worldPosition - camera_position_;
+        return worldPosition - cameraPosition_;
     }
     glm::vec2 screenToWorldPosition(const glm::vec2& screenPosition) const {
-        return screenPosition + camera_position_;
+        return screenPosition + cameraPosition_;
     }
 
     void pause();
     void resume();
 public:
-    glm::vec2 getCameraPosition() const { return camera_position_; }
+    glm::vec2 getCameraPosition() const { return cameraPosition_; }
     void setCameraPosition(const glm::vec2& position);
-    glm::vec2 getWorldSize() const { return world_size_; }
-    void setWorldSize(const glm::vec2& size) { world_size_ = size; }
-    std::vector<ObjectWorld*> getWorldChildren() const { return children_world_; }
-    std::vector<ObjectScreen*> getScreenChildren() const { return children_screen_; }
+    glm::vec2 getWorldSize() const { return worldSize_; }
+    void setWorldSize(const glm::vec2& size) { worldSize_ = size; }
+    std::vector<ObjectWorld*> getWorldChildren() const { return childrenWorld_; }
+    std::vector<ObjectScreen*> getScreenChildren() const { return childrenScreen_; }
 protected:
-    glm::vec2 camera_position_ = glm::vec2(0);
-    glm::vec2 world_size_ = glm::vec2(0);
-    std::vector<ObjectWorld*> children_world_;
-    std::vector<ObjectScreen*> children_screen_;
+    glm::vec2 cameraPosition_ = glm::vec2(0);
+    glm::vec2 worldSize_ = glm::vec2(0);
+    std::vector<ObjectWorld*> childrenWorld_;
+    std::vector<ObjectScreen*> childrenScreen_;
     bool isPause_ = false;
 };
 

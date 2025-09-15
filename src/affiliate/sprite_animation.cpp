@@ -15,23 +15,23 @@ void SpriteAnimation::update(float delta_time) {
     if (isFinished_) {
         return;
     }
-    frame_timer += delta_time;
-    if (frame_timer >= 1.0f / fps_) {
-        ++current_frame_;
-        if (current_frame_ >= total_frames_) {
-            current_frame_ = 0; // Loop back to the first frame
+    frameTimer += delta_time;
+    if (frameTimer >= 1.0f / fps_) {
+        ++currentFrame_;
+        if (currentFrame_ >= totalFrames_) {
+            currentFrame_ = 0; // Loop back to the first frame
             if (!isLoop_) {
                 isFinished_ = true;
             }
         }
-        frame_timer = 0.f;
+        frameTimer = 0.f;
     }
-    texture_.src_rect.x = current_frame_ * texture_.src_rect.w;
+    texture_.src_rect.x = currentFrame_ * texture_.src_rect.w;
 }
 
 void SpriteAnimation::setTexture(const Texture& texture) {
     texture_ = texture;
-    total_frames_ = static_cast<int>(std::ceil(texture.src_rect.w / texture.src_rect.h));
+    totalFrames_ = static_cast<int>(std::ceil(texture.src_rect.w / texture.src_rect.h));
     texture_.src_rect.w = texture_.src_rect.h;
     size_ = glm::vec2(texture_.src_rect.w, texture_.src_rect.h);
 }

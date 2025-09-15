@@ -43,7 +43,7 @@ void HUDButton::update([[maybe_unused]] float delta) {
 }
 
 void HUDButton::checkHover() {
-    auto position = render_position_ + spriteNormal_->getOffset();
+    auto position = renderPosition_ + spriteNormal_->getOffset();
     auto size = spriteNormal_->getSize();
     bool newHover_ = Game::GetInstance().isMouseInRect(position, position + size);
     if (newHover_ != isHover_) {

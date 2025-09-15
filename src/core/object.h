@@ -23,8 +23,8 @@ public:
 
     ObjectType getType() const { return type_; }
     void setType(ObjectType type) { type_ = type; }
-    bool isActive() const { return is_active_; }
-    void setActive(bool active) { is_active_ = active; }
+    bool isActive() const { return isActive_; }
+    void setActive(bool active) { isActive_ = active; }
     bool isNeedRemove() const { return isNeedRemove_; }
     void setIsNeedRemove(bool needRemove) { isNeedRemove_ = needRemove; }
 
@@ -33,7 +33,7 @@ protected:
     ObjectType type_ = ObjectType::NONE;
     std::vector<Object*> children_;
     std::vector<Object*> objectToAdd_;
-    bool is_active_ = true;
+    bool isActive_ = true;
     bool isNeedRemove_ = false;
 };
 

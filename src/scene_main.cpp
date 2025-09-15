@@ -11,11 +11,11 @@ void SceneMain::init() {
     Scene::init();
     SDL_HideCursor();
     Game::GetInstance().playMusic("assets/bgm/OhMyGhost.ogg");
-    world_size_ = Game::GetInstance().getScreenSize() * 3.0f;
-    camera_position_ = world_size_ / 2.f - Game::GetInstance().getScreenSize() / 2.f;
+    worldSize_ = Game::GetInstance().getScreenSize() * 3.0f;
+    cameraPosition_ = worldSize_ / 2.f - Game::GetInstance().getScreenSize() / 2.f;
     player_ = new Player;
     player_->init();
-    player_->setWorldPosition(world_size_ / 2.f);
+    player_->setWorldPosition(worldSize_ / 2.f);
     addChild(player_);
 
     BgStar::addBgStarChild(this, 2000, 0.2f, 0.5f, 0.7f);
@@ -78,8 +78,8 @@ void SceneMain::saveData(const std::string& filePath) {
 }
 
 void SceneMain::renderBackground() {
-    auto start = -camera_position_;
-    auto end = world_size_ - camera_position_;
+    auto start = -cameraPosition_;
+    auto end = worldSize_ - cameraPosition_;
     Game::GetInstance().drawGrid(start, end, 80.0f, SDL_FColor{ 0.5f, 0.5f, 0.5f, 1.0f });
     Game::GetInstance().drawBoundary(start, end, 5.0f, SDL_FColor{ 1.0f, 1.0f, 1.0f, 1.0f });
 }

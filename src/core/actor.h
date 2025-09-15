@@ -14,8 +14,8 @@ public:
     // getters and setters
     glm::vec2 getVelocity() const { return velocity_; }
     void setVelocity(const glm::vec2& velocity) { velocity_ = velocity; }
-    float getMaxSpeed() const { return max_speed_; }
-    void setMaxSpeed(float max_speed) { max_speed_ = max_speed; }
+    float getMaxSpeed() const { return maxSpeed_; }
+    void setMaxSpeed(float max_speed) { maxSpeed_ = max_speed; }
     Stats* getStats() const { return stats_; }
     void setStats(Stats* stats) { stats_ = stats; }
     AffiliateBar* getHealthBar() { return healthBar_; }
@@ -28,7 +28,7 @@ private:
     void updateHealthBar();
 protected:
     glm::vec2 velocity_ = glm::vec2(0, 0);
-    float max_speed_ = 100.0f;
+    float maxSpeed_ = 100.0f;
     Stats* stats_ = nullptr; // character stats
     AffiliateBar* healthBar_ = nullptr;
 };
